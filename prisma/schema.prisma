@@ -1,0 +1,291 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// datasource db {
+//   provider = "mysql"
+//   url      = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
+// model User {
+//   id              String @id @default(uuid())
+//   role            String? @default("student")
+//   name            String?
+//   email           String?   @unique
+//   emailVerified   DateTime?
+//   image           String?  
+//   hashedPassword  String?
+//   createdAt       DateTime @default(now())
+//   updatedAt       DateTime @updatedAt
+//   // favoriteIds     String[] @db.ObjectId
+
+//   accounts Account[] @relation("Social Accounts")
+//   students StudentCard[] @relation("Student Card")
+//   teachers TeacherCard[] @relation("Teacher Accounts")
+//   refferals  ReferralCode[] @relation("Access Code Accounts")
+// }
+
+// model Account {
+//   id                 String @id @default(uuid())
+//   userId             String 
+//   type               String
+//   provider           String
+//   providerAccountId  String
+//   refresh_token      String?  @db.LongText
+//   access_token       String?  @db.LongText
+//   expires_at         Int?
+//   token_type         String?
+//   scope              String?
+//   id_token           String?  @db.LongText
+//   session_state      String?
+
+//   user User @relation("Social Accounts",fields: [userId], references: [id], onDelete: Cascade)
+
+//   @@unique([provider, providerAccountId])
+//   @@index([userId])
+// }
+
+// model StudentCard {
+//   id              String @id @map("_id")
+//   role            String @default("student")
+//   Name            String
+//   email           String
+//   imageSrc        String
+//   Year            Int
+//   createdAt       DateTime @default(now())
+//   verified        Boolean  @default(false)
+//   RollNo          String?
+//   RegistrationNo  String?  
+//   Program         String
+//   Stream          String
+//   About           String?
+//   socialLinks     SocialLinks? @relation("SocialLinks")
+//   carrer_status  String?
+//   higher_study_degree String?
+//   university     String?
+//   job_title      String?
+//   company        String?
+//   industry       String?
+
+//   user User @relation("Student Card",fields: [id], references: [id], onDelete: Cascade)
+//   @@index([id])
+// }
+
+// model SocialLinks {
+//   id              String @id @map("_id")
+//   linkedInLink    String?
+//   githubLink      String?
+//   leetCodeLink    String?
+//   mediumLink      String?
+//   phoneNum        String?
+//   twitterLink     String?
+//   resume          String?
+
+//   student StudentCard @relation("SocialLinks",fields: [id], references: [id], onDelete: Cascade)
+//   @@index([id])
+// }
+
+// model TeacherCard {
+//   id             String @id  @map("_id")
+//   role            String  @default("faculty")
+//   Name            String
+//   email           String
+//   imageSrc        String
+//   createdAt       DateTime @default(now())
+//   Year            Int                  
+//   Department      String
+//   Designation     String
+//   Qualification   String
+//   Specialization  String
+//   linkedInurl     String
+//   resumeurl       String
+//   verified        Boolean  @default(false)
+
+//   user User @relation("Teacher Accounts", fields: [id], references: [id], onDelete: Cascade)
+//   @@index([id])
+// }
+
+// model ReferralCode {
+//   id              String    @id @default(uuid())
+//   accessCode      String    @unique
+//   createdBy       String    
+//   createdAt       DateTime  @updatedAt
+//   codeExpiration  DateTime
+//   // users           String[]  
+//   user User @relation("Access Code Accounts",fields: [createdBy], references: [id], onDelete: Cascade)
+//   @@index([createdBy])
+// }
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  role            String? @default("student")
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?  
+  hashedPassword  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  favoriteIds     String[] @db.ObjectId
+
+  accounts Account[]
+  students StudentCard[]
+  refferals  ReferralCode[]
+}
+
+model Account {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model StudentCard {
+  id              String @id @map("_id") @db.ObjectId
+  role            String @default("student")
+  Name            String
+  email           String
+  imageSrc        String
+  Year            Int
+  createdAt       DateTime @default(now())
+  verified        Boolean  @default(false)
+  RollNo          String?
+  RegistrationNo  String?  
+  Program         String
+  Stream          String
+  About           String?
+  socialLinks     SocialLinks?
+  carrer_status  String?
+  higher_study_degree String?
+  university     String?
+  job_title      String?
+  company        String?
+  industry       String?
+
+  user User @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model SocialLinks {
+  id              String @id @map("_id") @db.ObjectId
+  linkedInLink    String?
+  githubLink      String?
+  leetCodeLink    String?
+  mediumLink      String?
+  phoneNum        String?
+  twitterLink     String?
+  resume          String?
+
+  student StudentCard @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model ReferralCode {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  accessCode      String    @unique
+  createdBy       String    @db.ObjectId
+  createdAt       DateTime  @updatedAt
+  codeExpiration  DateTime
+  users           String[]  @db.ObjectId
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model Event {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  label       String
+  date        String    
+  Description String
+  Featured    String    @db.ObjectId
+  images      Image[]   // Relation to Image model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Image {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  eventId     String   @db.ObjectId // Foreign Key to Product
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  url         String   // URL of the image
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+}
+
+model GalleryPic {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  label       String
+  imageUrl    String
+  Year        Int
+  type        String  
+  createdBy   String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model YearList {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  fromYear    Int
+  toYear      Int
+  createdAt   DateTime @default(now())
+}
+
+model UnionMembers {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  label       String
+  gender      String
+  imageUrl    String
+  fromYear    Int
+  toYear      Int
+  batch       String
+  role        String  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Complaint {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  Name       String
+  Complaint  String 
+  Feedback   String
+  createdAt  DateTime @default(now())
+  verified   Boolean  @default(false)
+}
+
+model ContactInfo {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  address         String    
+  email           String  @unique
+  contactName1    String
+  PhoneNum1       String
+  contactName2    String
+  PhoneNum2       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Review {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  Name            String    
+  email           String    @unique
+  message         String
+  createdAt   DateTime @default(now())
+  verified   Boolean  @default(false)
+}
