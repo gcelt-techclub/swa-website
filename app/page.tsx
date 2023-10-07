@@ -1,4 +1,4 @@
-//export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic'
 // Global imports
 import { redirect } from "next/navigation";
 import Image from "next/image";
