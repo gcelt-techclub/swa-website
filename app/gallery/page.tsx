@@ -14,20 +14,15 @@ import Heading from "@/app/components/ui/Heading";
 import Container from "@/app/components/Container";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getGalleyPictures, { GalleryListingParams } from "@/app/actions/getGalleryPictures";
+import getGalleyPictures from "@/app/actions/getGalleryPictures";
 
 import GalleryClient from "./galleryClient";
 
 
 
-
-interface VerifyProps {
-    searchParams: GalleryListingParams
-};
-
-const GalleryPage = async ({ searchParams }: VerifyProps) => {
+const GalleryPage = async () => {
     const currentUser = await getCurrentUser();
-    const pictures = await getGalleyPictures(searchParams);
+    const pictures = await getGalleyPictures();
 
     //<BillboardClient data={formattedBillboards} />
 

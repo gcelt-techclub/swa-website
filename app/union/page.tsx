@@ -20,13 +20,11 @@ import UnionClient from "./unionClient";
 
 
 
-
-
 interface VerifyProps {
     searchParams: MemberListingsParams
 };
 
-const GalleryPage = async ({ searchParams }: VerifyProps) => {
+const UnionPage = async ({ searchParams }: VerifyProps) => {
     const currentUser = await getCurrentUser();
     const pictures = await getUnionMembers(searchParams);
 
@@ -75,4 +73,4 @@ const GalleryPage = async ({ searchParams }: VerifyProps) => {
     );
 }
 
-export default GalleryPage;
+export default UnionPage;

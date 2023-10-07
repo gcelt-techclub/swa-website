@@ -14,21 +14,14 @@ import Heading from "@/app/components/ui/Heading";
 import Container from "@/app/components/Container";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getEventsData, { EventListingParam } from "@/app/actions/getEventsData";
+import getEventsData from "@/app/actions/getEventsData";
 
 import EventClient from "./eventClient";
 
 
-
-
-
-interface VerifyProps {
-    searchParams: EventListingParam
-};
-
-const EventPage = async ({ searchParams }: VerifyProps) => {
+const EventPage = async () => {
     const currentUser = await getCurrentUser();
-    const events = await getEventsData(searchParams);
+    const events = await getEventsData();
 
     if (events.length === 0) {
         return (
