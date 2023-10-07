@@ -35,7 +35,7 @@ export default async function getEventsData(
         
         const eventist = await prismadb.event.findMany({
             orderBy: {
-                createdAt: 'desc'
+                createdAt: 'asc'
             }
         });
 

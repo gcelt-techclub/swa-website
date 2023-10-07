@@ -107,7 +107,7 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                 <div className="flex items-center justify-between">
                     <TabsList>
                         <TabsTrigger value="college">COLLEGE</TabsTrigger>
-                        <TabsTrigger value="students_batch">STUDENTS' BATCH</TabsTrigger>
+                        <TabsTrigger value="students_batch">STUDENTS &apos; BATCH</TabsTrigger>
                         <TabsTrigger value="all_program">ALL PROGRAM</TabsTrigger>
                     </TabsList>
                     {currentUser?.role === 'admin' &&

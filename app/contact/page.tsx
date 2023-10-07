@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 // Local imports
 import prismadb from "@/lib/prismadb"
 
@@ -19,22 +19,18 @@ const ContactPage = async () => {
     const currentUser = await getCurrentUser();
 
     const ContactInfo = await prismadb.contactInfo.findFirst();
-    // const safecontactInfo = {
-    //     id : ContactInfo?.id.toString(),
-    //     email: ContactInfo?.email.toString(),
-    //     address: ContactInfo?.address.toString(),
-    //     contactName1: ContactInfo?.contactName1.toString(),
-    //     PhoneNum1: ContactInfo?.PhoneNum1.toString(),
-    //     contactName2: ContactInfo?.contactName2.toString(),
-    //     PhoneNum2: ContactInfo?.PhoneNum2.toString(),
-    //     createdAt: ContactInfo?.createdAt.toISOString(),
-    //     updatedAt: ContactInfo?.updatedAt.toISOString(),
-    // };
 
     return (
         <ClientOnly>
             <div>
-                <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} />
+                <Image
+                    src={"/images/assets/hero_img.jpg"}
+                    height={1200}
+                    width={637}
+                    className="w-full h-1/3 lg:h-[40rem] object-cover"
+                    alt="hero_img"
+                />
+                {/* <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} alt='hero_img'/> */}
             </div>
             <div className={`bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950
             w-full pt-4 pb-2 px-10 transition-all delay-500 text-white flex flex-row`}>
