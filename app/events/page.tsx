@@ -16,7 +16,7 @@ import Container from "@/app/components/Container";
 import Filter from "@/app//components/customUi/filter/Filter";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getUnionMembers , { MemberListingsParams } from "@/app/actions/getUnionMembers";
+import getEventsData , { EventListingParam } from "@/app/actions/getEventsData";
 
 import EventClient from "./eventClient";
 
@@ -25,14 +25,14 @@ import EventClient from "./eventClient";
 
 
 interface VerifyProps {
-    searchParams: MemberListingsParams
+    searchParams: EventListingParam
 };
 
 const GalleryPage = async ({ searchParams }: VerifyProps) => {
     const currentUser = await getCurrentUser();
-    const pictures = await getUnionMembers(searchParams);
+    const events = await getEventsData(searchParams);
 
-    if (pictures.length === 0) {
+    if (events.length === 0) {
         return (
             <ClientOnly>
                 <EmptyState
@@ -62,7 +62,7 @@ const GalleryPage = async ({ searchParams }: VerifyProps) => {
                 </span>
                 {/* <Filter/> */}
                 <EventClient
-                    imgList={pictures}
+                    imgList={events}
                     currentUser={currentUser}
                 />
             </Container>

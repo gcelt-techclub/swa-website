@@ -143,7 +143,7 @@ const UnionClient: React.FC<UnionClientProps> = ({
                     getColumns(2),
                     getColumns(3),
                     getColumns(4)
-                ].map(column => <div className="flex flex-col gap-4">
+                ].map(column => <div key={column} className="flex flex-col gap-4">
                     {column.map((image: any) => (
                     <UnionBodyCard
                         key={image.id}

@@ -21,7 +21,7 @@ import {
     CardContent,
     CardFooter
 } from "@/app/components/ui/card";
-import UnionBodyCard from "@/app/components/customUi/cards/UnionBodyCard";
+import EventCard from "@/app/components/customUi/cards/eventCard";
 
 
 interface EventClientProps {
@@ -85,31 +85,18 @@ const EventClient: React.FC<EventClientProps> = ({
         [router]
     );
 
-    //Masonary Grid
-    const MAX_COLUMNS = 5;
-
-    function getColumns(colIndex: number) {
-        return imgList.filter((resource:any, idx:any) => 
-            idx%MAX_COLUMNS=== colIndex
-        );
-    }   
-
-
     return (
         <Container>
 
             <div className="mt-10
                     grid grid-cols-1 
-                    sm:grid-cols-2 
-                    md:grid-cols-2 
-                    lg:grid-cols-3
-                    xl:grid-cols-4
-                    2xl:grid-cols-5
+                    lg:grid-cols-2
+                    xl:grid-cols-2
                     gap-8
                 "
             >
                 {currentUser?.role === 'admin' &&
-                    <Card onClick={() => router.push(`/union/new`)}
+                    <Card onClick={() => router.push(`/events/new`)}
                         className="select-none w-full h-64 bg-neutral-100 dark:bg-slate-900 shadow-lg hover:-translate-y-4 transition">
                         <CardContent className="mb-0 pb-0.5">
                             <div className="w-full h-full border-black dark:border-neutral-400 border-2 text-muted-background items-center">
@@ -136,16 +123,9 @@ const EventClient: React.FC<EventClientProps> = ({
                 }
 
 
-                {/* Masonry Grid */}
-                {[
-                    getColumns(0),
-                    getColumns(1),
-                    getColumns(2),
-                    getColumns(3),
-                    getColumns(4)
-                ].map(column => <div className="flex flex-col gap-4">
-                    {column.map((image: any) => (
-                    <UnionBodyCard
+
+                {imgList.map((image: any) => (
+                    <EventCard
                         key={image.id}
                         data={image}
                         // image={image}
@@ -157,8 +137,6 @@ const EventClient: React.FC<EventClientProps> = ({
                         currentUser={currentUser}
                     />
                 ))}
-
-                </div>)}
             </div>
 
         </Container>

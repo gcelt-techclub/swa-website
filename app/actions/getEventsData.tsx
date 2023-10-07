@@ -1,35 +1,21 @@
-import prisma from "@/lib/prismadb";
+import prismadb from "@/lib/prismadb";
 
-export interface VerifiedFacultyListingParam {
+export interface EventListingParam {
     id: string;
-    Name?: string;
-    email?: string;
-    Department?: string,
-    Designation?: string,
-    Qualification?: string,
-    Specialization?: string,
-    linkedInurl?: string,
-    resumeurl?: string,
-    Year?: number;
-    verified: Boolean;
+    label?: string;
+    date?: string;
+    featured?: string,
 }
 
-export default async function getStudents(
-    params: VerifiedFacultyListingParam
+export default async function getEventsData(
+    params: EventListingParam
 ) {
     try {
         const {
             id,
-            Name,
-            email,
-            Department,
-            Designation,
-            Qualification,
-            Specialization,
-            linkedInurl,
-            resumeurl,
-            Year,
-            verified,
+            label,
+            date,
+            featured,
         } = params;
 
         let query: any = {};
@@ -37,50 +23,28 @@ export default async function getStudents(
         if (id) {
             query.id = id;
         }
-        if (Name) {
-            query.Name = Name;
+        if (label) {
+            query.label = label;
         }
-        if (email) {
-            query.email = email;
+        if (date) {
+            query.date = date;
         }
-        if (Department) {
-            query.RollNo = Department;
+        if (featured) {
+            query.featured = featured;
         }
-        if (Designation) {
-            query.RegistrationNo = Designation;
-        }
-        if (Qualification) {
-            query.Semester = Qualification;
-        }
-        if (Specialization) {
-            query.Name = Specialization;
-        }
-        if (Year) {
-            query.Year = Number(Year);
-        }
-        if (linkedInurl) {
-            query.Year = linkedInurl;
-        }
-        if (resumeurl) {
-            query.Year = resumeurl;
-        }
-        // if(verified){
-        //   query.verified === false ;
-        // }
+        
+        const eventist = await prismadb.event.findMany({
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
 
-
-        // const facultylist = await prisma.teacherCard.findMany({
-        //     where: { AND: [query, { verified: true }] },
-        //     orderBy: {
-        //         createdAt: 'desc'
-        //     }
-        // });
-
-        // const safeListings = facultylist.map((teacherCard) => ({
-        //     ...teacherCard,
-        //     createdAt: teacherCard.createdAt.toISOString(),
-        // }));
-        const safeListings='';
+        const safeListings = eventist.map((event) => ({
+            ...event,
+            createdAt: event.createdAt.toISOString(),
+            updatedAt: event.createdAt.toISOString(),
+        }));
+        
         return safeListings;
     } catch (error: any) {
         throw new Error(error);

@@ -18,8 +18,8 @@ import prismadb from "@/lib/prismadb";
 
 
 export const metadata = {
-    title: "Student Portal",
-    description: "In card format Students Information are kept",
+    title: "STUDENTS' WELFARE ASSOCIATION",
+    description: "Government College Of Engineering And Leather Technology"
 };
 const font = Nunito({
     subsets: ["latin-ext","cyrillic"],

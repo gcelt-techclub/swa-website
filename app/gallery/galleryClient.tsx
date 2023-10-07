@@ -167,7 +167,7 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                             getColumns(1),
                             getColumns(2),
                             getColumns(3)
-                        ].map(column => <div className="flex flex-col gap-4">
+                        ].map(column => <div key={column} className="flex flex-col gap-4">
                             {column.map((image: any) => (
                                 image.type === 'students_batch' && (
                                     <GalleryCard
