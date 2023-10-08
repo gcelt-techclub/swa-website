@@ -1,8 +1,9 @@
 import { StudentCard,
     SocialLinks,
-    ContactInfo , 
+    Event,
     GalleryPic,
     UnionMembers,
+    ContactInfo ,
     User 
 } from "@prisma/client";
 
@@ -11,6 +12,11 @@ type safeListing = StudentCard&SocialLinks
 export type SafeStudent = Omit<safeListing,"createdAt"> & {
   Year: number,
   createdAt: string;
+};
+
+export type SafeEvent = Omit<Event, "createdAt" | "updatedAt"> & {
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type SafeContactInfo = Omit<ContactInfo, "createdAt" | "updatedAt"> & {

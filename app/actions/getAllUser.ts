@@ -1,7 +1,7 @@
 import prisma from "@/lib/prismadb";
 
 export interface StudentListingParams {
-  id: string;
+  id?: string;
   Name?: string;
   email?: string;
   RollNo?: string;

@@ -79,7 +79,7 @@ const ScrollingNavbar: React.FC<NavbarProps> = ({
                             alt="Logo"
                         />
                         <span className="flex flex-col gap-y-2 justify-center items-center">
-                            <span className="text-3xl font-extrabold">STUDENT'S WELFARE ASSOCIATION</span>
+                            <span className="text-3xl font-extrabold">STUDENT&apos;S WELFARE ASSOCIATION</span>
                             <span className="hidden lg:block font-normal text-base ">GOVERNMENT COLLEGE OF ENGINEERING AND LEATHER TECHNOLOGY</span>                            
                             <span className="hidden lg:block font-normal text-sm ">Reg. No being- S/1L/74818 of 2010-2011 under West Bengal Act XXVI of 1961.</span>
                         </span>

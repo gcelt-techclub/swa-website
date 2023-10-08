@@ -1,10 +1,6 @@
-export const dynamic = 'force-dynamic'
 // Global imports
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import Image from "next/image";
-
-// Local imports
-import prisma from "@/lib/prismadb"
 
 // Components
 import Container from "@/app/components/Container";
@@ -17,33 +13,31 @@ import {
     CardHeader,
     CardTitle,
 } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
 
 // actions
-import getVerifiedStudents, { VerifiedListingParams } from "@/app/actions/getUnionMembers";
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import { useEffect } from "react";
-import { Button } from "@/app/components/ui/button";
 
 //client
 import StudentClient from "./studentClient";
 
 
-
-interface HomeProps {
-    searchParams: VerifiedListingParams
-};
-
-const Home = async ({ searchParams }: HomeProps) => {
-    const students = await getVerifiedStudents(searchParams);
+const StudentPage = async () => {
     const currentUser = await getCurrentUser();
     const isEmpty = true;
-
 
     return (
 
         <ClientOnly>
             <div>
-                <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} />
+                <Image
+                    src={"/images/assets/hero_img.jpg"}
+                    height={1200}
+                    width={637}
+                    className="w-full h-1/3 lg:h-[40rem] object-cover"
+                    alt="hero_img"
+                />
+                {/* <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} alt='hero_img'/> */}
             </div>
             <div className={`bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950
             w-full pt-4 pb-2 px-10 transition-all delay-500 text-white flex flex-row`}>
@@ -80,7 +74,7 @@ const Home = async ({ searchParams }: HomeProps) => {
 
                                         <div className="relative z-10">
                                             <p className="text-gray-800 dark:text-white"><em>
-                                                "BE A LIFELONG LEARNER, NOT A LIFELONG STUDENT..." -ANONYMOUS
+                                            &quot;BE A LIFELONG LEARNER, NOT A LIFELONG STUDENT...&quot; -ANONYMOUS
                                             </em></p>
                                         </div>
                                     </blockquote>
@@ -111,4 +105,4 @@ const Home = async ({ searchParams }: HomeProps) => {
     )
 }
 
-export default Home;
+export default StudentPage;

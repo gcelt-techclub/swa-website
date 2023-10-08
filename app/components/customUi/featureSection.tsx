@@ -23,7 +23,8 @@ export default function FeatureSection({
 }: featureProps) {
     return (
         <section className="w-full relative -z-10">
-            <img className="w-full h-fit object-cover" src={"/images/assets/feature_bg.jpg"} />
+
+            <div className="w-full h-[800px] bg-cover bg-center bg-[url('/images/assets/feature_bg.jpg')]" ></div>
             <div className="absolute bg-black/80 w-full h-full top-0 left-0 p-10 flex flex-col justify-center items-center">
                 <p className="font-extrabold text-3xl text-white whitespace-pre">{heading}</p>
                 <hr className="w-full border-t border-neutral-400 dark:border-muted-foreground" />

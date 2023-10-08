@@ -19,19 +19,12 @@ import {
 } from "@/app/components/ui/card";
 
 // actions
-import getVerifiedStudents, { VerifiedListingParams } from "@/app/actions/getUnionMembers";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { useEffect } from "react";
 import FeatureSection from "./components/customUi/featureSection";
 
 
-
-interface HomeProps {
-    searchParams: VerifiedListingParams
-};
-
-const Home = async ({ searchParams }: HomeProps) => {
-    const students = await getVerifiedStudents(searchParams);
+const Home = async () => {
     const currentUser = await getCurrentUser();
     const isEmpty = true;
 
@@ -40,7 +33,14 @@ const Home = async ({ searchParams }: HomeProps) => {
 
         <ClientOnly>
             <div>
-                <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} />
+                <Image
+                    src={"/images/assets/hero_img.jpg"}
+                    height={1200}
+                    width={637}
+                    className="w-full h-1/3 lg:h-[40rem] object-cover"
+                    alt="hero_img"
+                />
+                {/* <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} alt='hero_img'/> */}
             </div>
             <div className={`bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950
             w-full pt-4 pb-2 px-10 transition-all delay-500 text-white flex flex-row`}>
@@ -64,13 +64,13 @@ const Home = async ({ searchParams }: HomeProps) => {
                                     <p className="text-sm">
                                         The Government College of Engineering and Leather Technology (GCELT),
                                         pioneer in the field of education and research on Leather Technology
-                                        was originally started under the name 'Calcutta Research Tannery' in
+                                        was originally started under the name &apos;Calcutta Research Tannery&apos; in
                                         the year 1919 on the recommendation of Munitions Board set up by the
                                         Government of India immediately after the first World War with the aim
                                         of exploring Indigenous resources of hides, skins and tanning materials
                                         for the purpose of production of leather and leather goods and development
                                         of leather industry in the country. The college originally was situated
-                                        on Canal South Road, Pagladanga, P.O. Tangra, Calcutta – 700 015. In
+                                        on Canal South Road, Pagladanga, P.O. Tangra, Calcutta - 700 015. In
                                         August 1955 this college was affiliated to the University of Calcutta
                                         for imparting training in B. Sc. (Tech) course in Leather Technology and
                                         it has been recognized as a professional college under the University of
@@ -107,7 +107,7 @@ const Home = async ({ searchParams }: HomeProps) => {
                                     <p className="text-3xl font-black mb-4">STUDENTS&apos; VOICE</p>
                                     <p className="text-2xl font-bold text-cyan-900 dark:text-cyan-700">Students&apos; Welfare Association</p>
                                     <p className="text-sm">
-                                        The student body of any educational institute is one of the primary pillars of that institute. Thus every student body needs a platform through which they can voice their opinions, suggestions, complains and demands for their and their institute’s betterment. And not only voicing their opinion, but a platform is also very essential for proper communication among the students, faculty and administration. In GCELT this platform is provided to the students in form of Students Welfare Association of GCELT, a non-profitable, apolitical welfare association, by the students of GCELT and for the students of GCELT.
+                                        The student body of any educational institute is one of the primary pillars of that institute. Thus every student body needs a platform through which they can voice their opinions, suggestions, complains and demands for their and their institute&apos;s betterment. And not only voicing their opinion, but a platform is also very essential for proper communication among the students, faculty and administration. In GCELT this platform is provided to the students in form of Students Welfare Association of GCELT, a non-profitable, apolitical welfare association, by the students of GCELT and for the students of GCELT.
                                     </p>
                                     <p className="text-sm">
                                         Students Association of GCELT is a government of West Bengal registered association, the Reg. No being- S/1L/74818 of 2010-2011 under West Bengal Act XXVI of 1961. The main purpose and activity of this student body are as follows-
@@ -121,14 +121,14 @@ const Home = async ({ searchParams }: HomeProps) => {
                                         </li>
                                         <li>Annual cricket, football, badminton, carom tournament are organized by the association.
                                         </li>
-                                        <li>Other events organized and celebrated by the association includes- Freshers’ Welcome, Teachers’ Day, Independence Day, Republic Day, Rabindra Jayanti, Sharswati Puja, Final year Farewell etc.
+                                        <li>Other events organized and celebrated by the association includes- Freshers&apos; Welcome, Teachers&apos; Day, Independence Day, Republic Day, Rabindra Jayanti, Sharswati Puja, Final year Farewell etc.
                                         </li>
                                     </ol>
                                     <p className="text-sm">
-                                        The office bearers of this association are strictly students studying in GCELT and no one else. The post of General Secretary contains student from 4th year, Assistant General Secretary from 3rd year, and Treasurer from both 4th and 3rd year. Other official posts of the association include Sports Secretary, Cultural Secretary, Association PR student. Also class’ representative from each year and each stream are also part of the Students’ Welfare Association of GCELT. The office bearers are strictly students studying at GCELT at that time and they are chosen through voting. This election is held every year, under the supervision of college administration.
+                                        The office bearers of this association are strictly students studying in GCELT and no one else. The post of General Secretary contains student from 4th year, Assistant General Secretary from 3rd year, and Treasurer from both 4th and 3rd year. Other official posts of the association include Sports Secretary, Cultural Secretary, Association PR student. Also class&apos; representative from each year and each stream are also part of the Students&apos; Welfare Association of GCELT. The office bearers are strictly students studying at GCELT at that time and they are chosen through voting. This election is held every year, under the supervision of college administration.
                                     </p>
                                     <p className="text-sm">
-                                        Lastly to speak about this association’s motive, it can be said, Students Welfare Association of GCELT echoes George Bernard Shaw’s words: “You see things, and you say "Why?" But I dream things that never were, and I say "Why not?".
+                                        Lastly to speak about this association&apos;s motive, it can be said, Students Welfare Association of GCELT echoes George Bernard Shaw&apos;s words: “You see things, and you say &quot;Why?&quot; But I dream things that never were, and I say &quot;Why not?&quot;.
                                     </p>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@ const Home = async ({ searchParams }: HomeProps) => {
                             <div className="flex flex-col gap-3">
                                 <p className="text-2xl font-bold text-cyan-900 dark:text-cyan-700">From The Admin Panel</p>
                                 <p className="text-sm">
-                                    Students Welfare Association, GCELT is a versatile organisation of Government College Of Engineering And Leather Technology. This Association is an emotion to all the GCELTIANS. In a 100 years college it's not easy to keep all the GCELTIANS under a single umbrella. But Students Welfare Association, GCELT has the ability to do it. Thats why we are launching this website to reunite the GCELTIANS under their own kingdom. We want to grow the melange of connections between us for the betterment of the college.
+                                    Students Welfare Association, GCELT is a versatile organisation of Government College Of Engineering And Leather Technology. This Association is an emotion to all the GCELTIANS. In a 100 years college it&apos;s not easy to keep all the GCELTIANS under a single umbrella. But Students Welfare Association, GCELT has the ability to do it. Thats why we are launching this website to reunite the GCELTIANS under their own kingdom. We want to grow the melange of connections between us for the betterment of the college.
                                 </p>
                                 <p className="text-sm">
                                     So this is a small innitiative by the GCELTIANS & for the GCELTIANS. Register here and make your own profile and stay connected. Mind it Every GCELTIAN is a wealth for the college. We may reunite in every cultural or technical, or sports or any other programs.....but this website is a connector between alumni & Present Students. GCELT has now two international platform related to social work . Rotaract Club Of GCELT for the present GCELTIANS & Rotaract club of Calcutta Metro City for the Alumni of the institutions.
@@ -156,7 +156,7 @@ const Home = async ({ searchParams }: HomeProps) => {
 
                                         <div className="relative z-10">
                                             <p className="text-gray-800 dark:text-white"><em>
-                                                "Four words we never tell lieRemain GCELTIANS till die"
+                                                &quot;Four words we never tell lieRemain GCELTIANS till die&quot;
                                             </em></p>
                                         </div>
                                     </blockquote>
@@ -175,10 +175,10 @@ const Home = async ({ searchParams }: HomeProps) => {
                                     গর্বের ১০ বছর
                                 </p>
                                 <p className="text-sm">
-                                    Students' Welfare Association
+                                    Students&apos; Welfare Association
                                 </p>
                                 <p className="text-sm">
-                                    The student body of any educational institute is one of the primary pillars of that institute. Thus every student body needs a platform through which they can voice their opinions, suggestions, complains and demands for their and their institute’s betterment. And not only voicing their opinion, but a platform is also very essential for proper communication among the students, faculty and administration. In GCELT this platform is provided to the students in form of Students Welfare Association of GCELT, a non-profitable, apolitical welfare association, by the students of GCELT and for the students of GCELT.
+                                    The student body of any educational institute is one of the primary pillars of that institute. Thus every student body needs a platform through which they can voice their opinions, suggestions, complains and demands for their and their institute&apos;s betterment. And not only voicing their opinion, but a platform is also very essential for proper communication among the students, faculty and administration. In GCELT this platform is provided to the students in form of Students Welfare Association of GCELT, a non-profitable, apolitical welfare association, by the students of GCELT and for the students of GCELT.
                                 </p>
                                 <p className="text-sm">
                                     Students Association of GCELT is a government of West Bengal registered association, the Reg. No being- S/1L/74818 of 2010-2011 under West Bengal Act XXVI of 1961.

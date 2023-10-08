@@ -1,7 +1,6 @@
 // import { format } from "date-fns";
 
-import prismadb from "@/lib/prismadb";
-
+import Image from "next/image";
 // const BillboardsPage = async ({
 //     params
 // }: {
@@ -13,26 +12,18 @@ import EmptyState from "@/app/components/EmptyState";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/ui/Heading";
 import Container from "@/app/components/Container";
-import Filter from "@/app//components/customUi/filter/Filter";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getUnionMembers , { MemberListingsParams } from "@/app/actions/getUnionMembers";
+import getEventsData from "@/app/actions/getEventsData";
 
 import EventClient from "./eventClient";
 
 
-
-
-
-interface VerifyProps {
-    searchParams: MemberListingsParams
-};
-
-const GalleryPage = async ({ searchParams }: VerifyProps) => {
+const EventPage = async () => {
     const currentUser = await getCurrentUser();
-    const pictures = await getUnionMembers(searchParams);
+    const events = await getEventsData();
 
-    if (pictures.length === 0) {
+    if (events.length === 0) {
         return (
             <ClientOnly>
                 <EmptyState
@@ -46,7 +37,14 @@ const GalleryPage = async ({ searchParams }: VerifyProps) => {
     return (
         <ClientOnly>
             <div>
-                <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} />
+                <Image
+                    src={"/images/assets/hero_img.jpg"}
+                    height={1200}
+                    width={637}
+                    className="w-full h-1/3 lg:h-[40rem] object-cover"
+                    alt="hero_img"
+                />
+                {/* <img className="w-full h-1/3 lg:h-[40rem] object-cover" src={"/images/assets/hero_img.jpg"} alt='hero_img' /> */}
             </div>
             <div className={`bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950
             w-full pt-4 pb-2 px-10 transition-all delay-500 text-white flex flex-row`}>
@@ -58,11 +56,11 @@ const GalleryPage = async ({ searchParams }: VerifyProps) => {
                 <span className="mt-10 mb-10 flex flex-col justify-center items-center">
                     <p className="font-black text-4xl whitespace-pre p-3">OUR EVENTS</p>
                     <hr className="w-full  border-t border-neutral-400 dark:border-muted-foreground" />
-                    <p className="text-sm whitespace-pre p-3">ORGANIZED BY- STUDENTS' WELFARE ASSOCIATION</p>
+                    <p className="text-sm whitespace-pre p-3">ORGANIZED BY- STUDENTS&apos; WELFARE ASSOCIATION</p>
                 </span>
                 {/* <Filter/> */}
                 <EventClient
-                    imgList={pictures}
+                    imgList={events}
                     currentUser={currentUser}
                 />
             </Container>
@@ -71,4 +69,4 @@ const GalleryPage = async ({ searchParams }: VerifyProps) => {
     );
 }
 
-export default GalleryPage;
+export default EventPage;

@@ -1,8 +1,6 @@
 import prisma from "@/lib/prismadb";
 
 export interface MemberListingsParams {
-    id: string;
-    imageUrl?: string;
     label?: string;
     gender?: string;
     role?: string;
@@ -16,8 +14,6 @@ export default async function getUnionMembers(
 ) {
     try {
         const {
-            id,
-            imageUrl,
             label,
             gender,
             role,
@@ -28,26 +24,25 @@ export default async function getUnionMembers(
 
         let query: any = {};
         // to check whether
-        if (id) {
-            query.id = id;
-        }
+
         if (label) {
-            query.Name = label;
+            query.label = label;
         }
         if (role) {
             query.role = role;
         }
         if (gender) {
-            query.role = gender;
+            query.gender = gender;
         }
         if (batch) {
-            query.Year = Number(batch);
+            query.batch = Number(batch);
         }
         // if(verified){
         //   query.verified === false ;
         // }
 
         const unionMemberList = await prisma.unionMembers.findMany({
+            where: { AND: [query] },
             orderBy: {
                 createdAt: 'desc'
             }
