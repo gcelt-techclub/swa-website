@@ -7,7 +7,7 @@ import { SafeUser } from "@/app/types";
 import Heading from "@/app/components/ui/Heading";
 import Container from "@/app/components/Container";
 import { UserList } from "@/app/components/customUi/cards/UserList";
-import { columns } from "@/app/components/customUi/dataTable/columns"
+import { columns } from "@/app/roles/components/columns"
 
 interface RolesClientProps {
   allUsers: SafeUser[];

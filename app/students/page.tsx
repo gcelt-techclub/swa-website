@@ -1,7 +1,10 @@
 // Global imports
-import { useEffect } from "react";
 import Image from "next/image";
+import { format } from "date-fns";
 
+
+//types
+import { SafeComplaint } from "@/app/types";
 // Components
 import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
@@ -14,9 +17,12 @@ import {
     CardTitle,
 } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
+import { ComplaintList } from "@/app/students/components/ComplaintList";
+import { columns } from "@/app/students/components/columns";
 
 // actions
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import getallComplaints from "@/app/actions/getallComplaints";
 
 //client
 import StudentClient from "./studentClient";
@@ -24,6 +30,20 @@ import StudentClient from "./studentClient";
 
 const StudentPage = async () => {
     const currentUser = await getCurrentUser();
+    const allComplaint = await getallComplaints();
+
+    const formattedComplaints: SafeComplaint[] = allComplaint.map((item) => ({
+        id: item.id,
+        Name: item.Name,
+        Complaint: item.Complaint,
+        Feedback: item.Feedback,
+        verified: item.verified,
+        createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+      }));
+    
+
+
+
     const isEmpty = true;
 
     return (
@@ -74,7 +94,7 @@ const StudentPage = async () => {
 
                                         <div className="relative z-10">
                                             <p className="text-gray-800 dark:text-white"><em>
-                                            &quot;BE A LIFELONG LEARNER, NOT A LIFELONG STUDENT...&quot; -ANONYMOUS
+                                                &quot;BE A LIFELONG LEARNER, NOT A LIFELONG STUDENT...&quot; -ANONYMOUS
                                             </em></p>
                                         </div>
                                     </blockquote>
@@ -96,12 +116,22 @@ const StudentPage = async () => {
                         </Container>
                     </CardContent>
                     <CardFooter>
-                        <StudentClient currentUser={currentUser}/>
+                        <StudentClient currentUser={currentUser} />
                     </CardFooter>
                 </Card>
+                {currentUser?.role === 'admin' &&
+                    <Card className="select-none w-full bg-neutral-100 dark:bg-slate-900 shadow-lg mt-3 mb-16">
+                        <CardHeader className="flex flex-col justify-center items-center">
+                            <CardTitle className="text-3xl font-extrabold">COMPLAINTS REPORT</CardTitle>
+                            <hr className="w-full border-t border-neutral-400 dark:border-muted-foreground" />
+                        </CardHeader>
+                        <CardContent className="mt-3">
+                            <ComplaintList columns={columns} data={formattedComplaints} />                           
+                        </CardContent>
+                    </Card>
+                }
             </Container>
         </ClientOnly>
-
     )
 }
 

@@ -19,11 +19,7 @@ import {
 import getYear from "@/lib/getYear";
 
 //Components
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage
-} from "@/app/components/ui/avatar";
+
 import { Button } from "@/app/components/ui/button";
 import {
     Card,
@@ -56,6 +52,7 @@ const EventCard: React.FC<EventCardProps> = ({
 }) => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+
 
     const handleVerify = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -7,14 +7,8 @@ export default async function getEventsData() {
                 createdAt: 'asc'
             }
         });
-
-        const safeListings = eventist.map((event) => ({
-            ...event,
-            createdAt: event.createdAt.toISOString(),
-            updatedAt: event.createdAt.toISOString(),
-        }));
         
-        return safeListings;
+        return eventist;
     } catch (error: any) {
         throw new Error(error);
     }

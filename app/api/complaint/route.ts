@@ -11,16 +11,16 @@ export async function POST(
         const body = await request.json();
         const {  
             Name,
-            complaint,
-            feedback,
+            Complaint,
+            Feedback,
             PhoneNum2
         } = body;
 
         const newComplaint = await prismadb.complaint.create({
             data: {
                 Name,
-                Complaint: complaint,
-                Feedback: feedback,
+                Complaint,
+                Feedback,
             },
         });
         return NextResponse.json(newComplaint);

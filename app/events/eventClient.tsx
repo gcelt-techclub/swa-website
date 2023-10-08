@@ -10,7 +10,7 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // Local imports
-import { SafeUnionMember, SafeUser } from "@/app/types";
+import { SafeEvent, SafeUser } from "@/app/types";
 //Components
 import Container from "@/app/components/Container";
 import { Button } from "@/app/components/ui/button";
@@ -25,7 +25,7 @@ import EventCard from "@/app/components/customUi/cards/eventCard";
 
 
 interface EventClientProps {
-    imgList: SafeUnionMember[] | any;
+    imgList: SafeEvent[] | any;
     currentUser?: SafeUser | null;
 }
 

@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { format } from "date-fns";
+
+
 // Local imports
 import prismadb from "@/lib/prismadb"
 
@@ -6,19 +9,32 @@ import prismadb from "@/lib/prismadb"
 import ClientOnly from "@/app/components/ClientOnly";
 import Container from "@/app/components/Container";
 import Heading from "@/app/components/ui/Heading";
+import { ReviewList } from "@/app/contact/components/ReviewList";
+import { columns } from "@/app/contact/components/columns";
+
 //clients
 import ReviewClient from "./reviewClient";
 
 // actions
 import getCurrentUser from "@/app/actions/getCurrentUser";
-
+import getallReviews from "@/app/actions/getallReviews";
 
 
 
 const ContactPage = async () => {
     const currentUser = await getCurrentUser();
-
+    const allComplaint = await getallReviews();
     const ContactInfo = await prismadb.contactInfo.findFirst();
+    
+    const formattedReviews: any = allComplaint.map((item) => ({
+        id: item.id,
+        Name: item.Name,
+        email: item.email,
+        message: item.message,
+        verified: item.verified,
+        createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    }));
+
 
     return (
         <ClientOnly>
@@ -57,6 +73,12 @@ const ContactPage = async () => {
                         aria-hidden="false"
                     />
                 </span>
+                {currentUser?.role === 'admin' &&
+                    <div className="">
+                        <ReviewList
+                            columns={columns} data={formattedReviews}
+                        />
+                    </div>}
             </Container>
         </ClientOnly>
     )

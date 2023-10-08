@@ -35,8 +35,8 @@ import { Textarea } from "@/app/components/ui/textarea";
 
 const ComplaintSchema = z.object({
     Name: z.string().min(10), //.optional().transform(e => e === "" ? undefined : e) , // atleast 3 character is required to properly name our store
-    complaint: z.string().min(3),
-    feedback: z.string().min(3),
+    Complaint: z.string().min(3),
+    Feedback: z.string().min(3),
     PhoneNum2: z.coerce.number().optional(),
 });
 
@@ -55,8 +55,8 @@ const StudentClient: React.FC<studentClientProps> = ({
         resolver: zodResolver(ComplaintSchema),
         defaultValues: {
             Name: "Anonymous User",
-            complaint: "",
-            feedback: "",
+            Complaint: "",
+            Feedback: "",
             PhoneNum2: 0
         },
     })
@@ -123,7 +123,7 @@ const StudentClient: React.FC<studentClientProps> = ({
                         />
                         <FormField
                             control={complaintForm.control}
-                            name="complaint"
+                            name="Complaint"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><Frown size={22}/>Complaint</FormLabel>
@@ -137,7 +137,7 @@ const StudentClient: React.FC<studentClientProps> = ({
                         />
                         <FormField
                             control={complaintForm.control}
-                            name="feedback"
+                            name="Feedback"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><ThumbsUp size={22}/>Feedback</FormLabel>

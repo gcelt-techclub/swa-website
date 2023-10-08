@@ -4,6 +4,7 @@ import { StudentCard,
     GalleryPic,
     UnionMembers,
     ContactInfo ,
+    Complaint,
     User 
 } from "@prisma/client";
 
@@ -19,6 +20,11 @@ export type SafeEvent = Omit<Event, "createdAt" | "updatedAt"> & {
   updatedAt: string;
 };
 
+export type SafeComplaint = Omit<Complaint, "createdAt"> & {
+  createdAt: string;
+};
+
+
 export type SafeContactInfo = Omit<ContactInfo, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
@@ -33,6 +39,7 @@ export type SafeUnionMember = Omit<UnionMembers, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
 };
+
 
 export type SafeUser = Omit<
   User,

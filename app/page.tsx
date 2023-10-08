@@ -4,13 +4,12 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 
 // Local imports
-import prisma from "@/lib/prismadb"
+import { PictureList0, PictureList1 } from "./HomePicture";
 
 // Components
 import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "./components/ui/Heading";
-import Filter from "@/app/components/customUi/filter/Filter";
 import {
     Card,
     CardContent,
@@ -20,14 +19,12 @@ import {
 
 // actions
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import { useEffect } from "react";
 import FeatureSection from "./components/customUi/featureSection";
 
 
 const Home = async () => {
     const currentUser = await getCurrentUser();
     const isEmpty = true;
-
 
     return (
 
@@ -82,11 +79,18 @@ const Home = async () => {
                                     </p>
                                 </div>
                                 <div className="order-first mb-10 md:order-2 md:col-span-4 ">
-                                    <div className="grid grid-cols-12 gap-4">
-                                        <div className="w-40 h-30 col-span-6 bg-red-500 border-double border-neutral-500">01</div>
-                                        <div className="w-40 h-30 col-span-6 bg-red-500 border-double border-neutral-500">02</div>
-                                        <div className="w-40 h-30 col-span-6 bg-red-500 border-double border-neutral-500">03</div>
-                                        <div className="w-40 h-30 col-span-6 bg-red-500 border-double border-neutral-500">04</div>
+                                    {/* images here */}
+                                    <div className="flex flex-wrap gap-3">
+                                        {PictureList0.map((image: { src: string, label: string }) => (
+                                            <div key={image.src} className="w-fit h-fit p-2 border-2 border-neutral-500 dark:border-neutral-100">
+                                                <Image
+                                                    src={image.src}
+                                                    height={150}
+                                                    width={200}                                                    
+                                                    alt="four_images"
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div></div>
@@ -102,6 +106,18 @@ const Home = async () => {
                             <div className="grid grid-cols-1 md:grid-cols-8 md:gap-7 mt-6 mb-2">
                                 <div className="order-1 col-span-3 flex flex-col gap-1 pr-18">
                                     {/* images here */}
+                                    <div className="flex flex-wrap gap-0.5">
+                                        {PictureList1.map((image: { src: string, label: string }) => (
+                                            <div key={image.src} className="w-fit h-fit">
+                                                <Image
+                                                    src={image.src}
+                                                    height={120}
+                                                    width={160}                                                    
+                                                    alt="ten_images"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 <div className="order-first mb-10 md:order-2 md:col-span-5 flex flex-col gap-2">
                                     <p className="text-3xl font-black mb-4">STUDENTS&apos; VOICE</p>

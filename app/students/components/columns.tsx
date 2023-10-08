@@ -11,22 +11,19 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 
 // Local imports
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
+import { DataTableColumnHeader } from "@/app/components/customUi/dataTable/data-table-column-header";
+import { DataTableRowActions } from "@/app/components/customUi/dataTable/data-table-row-actions";
+
 //types
-import { SafeUser } from "@/app/types";
-import { getFirstLettersOfWords } from "@/lib/getYear";
+import {SafeComplaint } from "@/app/types";
+
 // Components
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { Button } from "@/app/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar";
 
-
-
-
-
 // We need to specify Coloumns name and also specify how rows renders
-export const columns: ColumnDef<SafeUser>[] = [
+export const columns: ColumnDef<SafeComplaint>[] = [
     // checkbox
     {
         id: "select",
@@ -50,57 +47,6 @@ export const columns: ColumnDef<SafeUser>[] = [
         enableHiding: false,
     },
 
-    // avatar images
-    {
-        accessorKey: "image",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Avatar" />
-        ),
-        cell: ({ row }) => <span className="max-w-12"><Avatar className="h-8 w-8">
-            <AvatarImage src={row.getValue("image") || '/avatars/01.png'} alt="@shadcn" />
-            <AvatarFallback>{getFirstLettersOfWords(row.getValue("name"))}</AvatarFallback>
-        </Avatar></span>,
-        enableSorting: false,
-        enableHiding: false,
-    },
-
-
-    // names
-    {
-        accessorKey: "name",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="User" />
-        ),
-        cell: ({ row }) => {
-            return (
-                <span className="max-w-[80px] truncate font-medium">
-                    {row.getValue("name")}
-                </span>
-            )
-        },
-    },
-
-
-    // email 
-    {
-        accessorKey: "email",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="email" />
-        ),
-        cell: ({ row }) => {
-
-            return (
-                <div className="flex w-[250px] items-center truncate">
-                    <MdAlternateEmail className="mr-2 h-4 w-4 text-muted-foreground" />
-                    <span>{row.getValue("email")}</span>
-                </div>
-            )
-        },
-        filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id))
-        },
-    },
-
     // created At 
     {
         accessorKey: "createdAt",
@@ -109,7 +55,7 @@ export const columns: ColumnDef<SafeUser>[] = [
         ),
         cell: ({ row }) => {
             return (
-                <div className="flex  w-[250px] items-center">
+                <div className="max-w-64 flex items-center">
                     <MdOutlineCalendarMonth className="mr-2 h-5 w-5 text-muted-foreground" />
                     <span>{row.getValue("createdAt")}</span>
                 </div>
@@ -120,11 +66,43 @@ export const columns: ColumnDef<SafeUser>[] = [
         },
     },
 
+    // Complaint
+    {
+        accessorKey: "Complaint",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Complaint" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <span className="font-medium flex flex-wrap">
+                    {row.getValue("Complaint")}
+                </span>
+            )
+        },
+    },
+
+    // Feedback
+    {
+        accessorKey: "Feedback",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Feedback" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <span className="font-medium flex flex-wrap">
+                    {row.getValue("Feedback")}
+                </span>
+            )
+        },
+    },
+
+
+
     // Roles Button 
     {
-        id:"role",
+        id:"Verified",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Roles" />
+            <DataTableColumnHeader column={column} title="Verified" />
         ),
         cell: Cell,
         enableSorting: false,
@@ -173,22 +151,15 @@ function Cell({ row } : any) {
             <div className="col-span-3 flex flex-row gap-0 text-base">
                 <Button
                     variant={`${user.role === 'student'?"default":"outline"}`}
-                    className={`${user.role === 'student'?"bg-violet-700 dark:text-white":"bg-transparent"}
-                    rounded-l-full hover:bg-violet-700 hover:border-violet-700`}
+                    className={`${user.role === 'student'?"bg-cyan-800 dark:text-white":"bg-transparent"}
+                    rounded-l-full hover:bg-cyan-800 hover:border-cyan-900`}
                     size="sm"
                     onClick={() => onAssign(user.id, 'student')}
                 >Student</Button>
                 <Button
-                    variant={`${user.role === 'teacher'?"default":"outline"}`}
-                    className={`${user.role === 'teacher'?"bg-violet-700 dark:text-white":"bg-transparent"}
-                    rounded-none hover:bg-violet-700 hover:border-violet-700`}
-                    size="sm"
-                    onClick={() => onAssign(user.id, 'teacher')}
-                >Teacher</Button>
-                <Button
                     variant={`${user.role === 'admin'?"default":"outline"}`}
-                    className={`${user.role === 'admin'?"bg-violet-700 dark:text-white":"bg-transparent"}
-                    rounded-r-full hover:bg-violet-700 hover:border-violet-700`}
+                    className={`${user.role === 'admin'?"bg-cyan-800 dark:text-white":"bg-transparent"}
+                    rounded-r-full hover:bg-cyan-800 hover:border-cyan-900`}
                     size="sm"
                     onClick={() => onAssign(user.id, 'admin')}
                 >Admin</Button>
