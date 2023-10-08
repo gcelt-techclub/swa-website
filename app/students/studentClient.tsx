@@ -1,14 +1,14 @@
 'use client';
 
 //icons
-import { ShieldQuestion, Frown , ThumbsUp } from "lucide-react";
+import { ShieldQuestion, Frown, ThumbsUp } from "lucide-react";
 
 
 // Global import 
 import axios from "axios";
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useForm } from 'react-hook-form';
@@ -50,6 +50,9 @@ const StudentClient: React.FC<studentClientProps> = ({
     const registerModal = useRegisterModal();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [isFormAcceptingResponse, setIsFormAcceptingResponse] = useState(true);
+    const [coolDownRemainingTime, setCoolDownRemainingTime] = useState(-1);
+    let timer: any;
 
     const complaintForm = useForm<z.infer<typeof ComplaintSchema>>({
         resolver: zodResolver(ComplaintSchema),
@@ -70,15 +73,27 @@ const StudentClient: React.FC<studentClientProps> = ({
                 toast.success('Complaint Registered Successful!');
                 router.refresh();
                 complaintForm.reset();
+                setIsFormAcceptingResponse(false);
+                setCoolDownRemainingTime(60);
+                timer = setInterval(() => setCoolDownRemainingTime(coolDownRemainingTime - 1), 1000);
             })
             .catch(() => {
                 toast.error('Something went wrong.');
             })
             .finally(() => {
                 setIsLoading(false);
+
             })
         // setIsLoading(false);
     }
+
+    useEffect(() => {
+        if (!coolDownRemainingTime) {
+            clearInterval(timer);
+            setIsFormAcceptingResponse(true);
+        }
+    }, [coolDownRemainingTime])
+
 
     return (
 
@@ -104,8 +119,9 @@ const StudentClient: React.FC<studentClientProps> = ({
                             COMPLAINT  / GRIEVANCE
                         </p>
                         <p className="mx-auto mb-7">
-                            If Students have any Complaint against the System 
+                            If Students have any Complaint against the System
                         </p>
+
                         <FormField
                             control={complaintForm.control}
                             name="Name"
@@ -126,7 +142,7 @@ const StudentClient: React.FC<studentClientProps> = ({
                             name="Complaint"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><Frown size={22}/>Complaint</FormLabel>
+                                    <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><Frown size={22} />Complaint</FormLabel>
                                     <FormControl>
                                         {/* Spread onBlur , onChange , value , name , ref by using ...field , and thus we handle all those fields*/}
                                         <Textarea placeholder="Type your message here."  {...field} disabled={isLoading} />
@@ -140,7 +156,7 @@ const StudentClient: React.FC<studentClientProps> = ({
                             name="Feedback"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><ThumbsUp size={22}/>Feedback</FormLabel>
+                                    <FormLabel className="w-1/2 flex gap-2 items-center text-cyan-700 text-lg font-extrabold"><ThumbsUp size={22} />Feedback</FormLabel>
                                     <FormControl>
                                         {/* Spread onBlur , onChange , value , name , ref by using ...field , and thus we handle all those fields*/}
                                         <Textarea placeholder="Type your message here."  {...field} disabled={isLoading} />
@@ -150,6 +166,11 @@ const StudentClient: React.FC<studentClientProps> = ({
                             )}
                         />
 
+                        {!isFormAcceptingResponse && <>
+                            <p className="text-amber-500">You have reached the Message CoolDown Time</p>
+                            <p className="text-cyan-900">Waiting Time: {timer}</p>
+                        </>
+                        }
 
                         <Button className="mt-5 w-full rounded px-3 py-1.5 overflow-hidden group bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950 relative hover:bg-gradient-to-r text-white transition-all ease-out duration-300"
                             type="submit" disabled={isLoading} >
