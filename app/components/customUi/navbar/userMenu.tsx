@@ -9,15 +9,20 @@ import {
     CalendarCheck,
     ThumbsUp,
     ThumbsDown,
-    Search
+    Search,
+    School2,
+    Boxes,
+    Contact,
+
 } from "lucide-react";
-import { TbCircleFilled } from "react-icons/tb";
+import { TbCircleFilled , TbHomeBolt } from "react-icons/tb";
 import {
     PiStudentBold,
     PiExamDuotone,
-    PiChalkboardTeacherDuotone
+    PiCalendarCheckBold,
+    PiGooglePhotosLogoDuotone
 } from "react-icons/pi"
-
+import {VscOrganization} from 'react-icons/vsc'
 
 // Global import
 import { signOut } from "next-auth/react";
@@ -133,19 +138,30 @@ export default function UserMenu({ currentUser, scrollingColor  }: UserMenuProps
                             <DropdownMenuSeparator />
                         </>}
                         <DropdownMenuGroup className="block lg:hidden text-neutral-600">
+                            <DropdownMenuItem onClick={() => router.push('https://gcelt.gov.in')}>
+                                <School2  className="mr-2 h-4 w-4" /> GCELT
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => router.push('/')}>
-                                <PiStudentBold className="mr-2 h-4 w-4" /> Students
+                                <TbHomeBolt className="mr-2 h-4 w-4" /> HOME
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/faculty')}>
-                                <PiChalkboardTeacherDuotone className="mr-2 h-5 w-5" /> Faculty
+                            <DropdownMenuItem onClick={() => router.push('/events')}>
+                                <PiCalendarCheckBold className="mr-2 h-5 w-5" /> Events
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/routine')}>
-                                <CalendarCheck className="mr-2 h-4 w-4" /> Routine
+                            <DropdownMenuItem onClick={() => router.push('/gallery')}>
+                                <PiGooglePhotosLogoDuotone className="mr-2 h-4 w-4" /> Gallery
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/exams')}>
-                                <PiExamDuotone className="mr-2 h-5 w-5" /> Exams
+                            <DropdownMenuItem onClick={() => router.push('/clubs')}>
+                                <Boxes className="mr-2 h-5 w-5" /> Clubs
                             </DropdownMenuItem>
-
+                            <DropdownMenuItem onClick={() => router.push('/union')}>
+                                <VscOrganization className="mr-2 h-5 w-5" /> Uinion
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/students')}>
+                                <PiStudentBold className="mr-2 h-5 w-5" /> Students
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/contact')}>
+                                <Contact className="mr-2 h-5 w-5" /> Contact
+                            </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuGroup className="text-neutral-600 dark:text-neutral-500 my-3">
                             {currentUser ? currentUser.role === "admin" ? (
