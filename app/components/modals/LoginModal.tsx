@@ -65,7 +65,7 @@ const LogInModal = () => {
     useEffect(() => {
         if (session?.status === "authenticated") {
             toast.success('LoggedIn!');
-            // router.push('/register')
+            router.push('/register') //
         }
         else{
             router.push('/') 
@@ -111,7 +111,7 @@ const LogInModal = () => {
                     if (callback?.ok) {
                         //To check the url's storeid if present inside datanase and if present then fetch it
                         registerModal.onClose();                        
-                        router.push('/register');
+                        router.push('/register'); //
                     }
 
                     if (callback?.error) {
@@ -132,7 +132,7 @@ const LogInModal = () => {
                 .then(() => {
                     toast.success('Registered!');
                     registerModal.onClose();
-                    router.push('/register');
+                    router.push('/register'); //
                 })
                 .catch((error) => {
                     toast.error(error);

@@ -132,20 +132,18 @@ export const columns: ColumnDef<SafeComplaint>[] = [
 ]
 
 function Cell({ row }: any) {
-    const user = row.original
-    const [assignRoleId, setAssignRoleId] = useState("");
+    const review = row.original
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const onAssign = useCallback(
-        (id: string, role: string) => {
-            setAssignRoleId(id);
+        (id: string, verify: boolean) => {
             setIsLoading(true);
-            const data = { role };
+            const data = { verify };
             // Request
             axios
-                .post(`/api/role/${id}`, data)
+                .patch(`/api/contact/${id}`, data)
                 .then(() => {
-                    toast.success("Successfully Role assigned to user ");
+                    toast.success("Review Verified Successfully");
                     router.refresh();
                 })
                 .catch((error) => {
@@ -153,7 +151,6 @@ function Cell({ row }: any) {
                     console.error(error);
                 })
                 .finally(() => {
-                    setAssignRoleId("");
                     setIsLoading(false);
                 });
         },
@@ -165,19 +162,21 @@ function Cell({ row }: any) {
     return (
         <div className="col-span-3 flex flex-row gap-0 text-base">
             <Button
-                variant={`${user.role === 'student' ? "default" : "outline"}`}
-                className={`${user.role === 'student' ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
+                disabled={isLoading}
+                variant={`${review.Verified === false ? "default" : "outline"}`}
+                className={`${review.Verified === false ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
                     rounded-l-full hover:bg-cyan-800 hover:border-cyan-900`}
                 size="sm"
-                onClick={() => onAssign(user.id, 'student')}
-            >Student</Button>
+                onClick={() => onAssign(review.id, false)}
+            >Not Verified</Button>
             <Button
-                variant={`${user.role === 'admin' ? "default" : "outline"}`}
-                className={`${user.role === 'admin' ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
+                disabled={isLoading}
+                variant={`${review.Verified === true ? "default" : "outline"}`}
+                className={`${review.Verified === true ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
                     rounded-r-full hover:bg-cyan-800 hover:border-cyan-900`}
                 size="sm"
-                onClick={() => onAssign(user.id, 'admin')}
-            >Admin</Button>
+                onClick={() => onAssign(review.id, true)}
+            >Verified</Button>
         </div>
     )
 }

@@ -116,53 +116,53 @@ export const columns: ColumnDef<SafeComplaint>[] = [
     },
 ]
 
-function Cell({ row } : any) {
-        const user = row.original
-        const [assignRoleId, setAssignRoleId] = useState("");
-        const [isLoading, setIsLoading] = useState(false);
-        const router = useRouter();
-        const onAssign = useCallback(
-            (id: string, role: string) => {
-                setAssignRoleId(id);
-                setIsLoading(true);
-                const data = { role };
-                // Request
-                axios
-                    .post(`/api/role/${id}`, data)
-                    .then(() => {
-                        toast.success("Successfully Role assigned to user ");
-                        router.refresh();
-                    })
-                    .catch((error) => {
-                        toast.error(error?.response?.statusText);
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setAssignRoleId("");
-                        setIsLoading(false);
-                    });
-            },
-            [router]
-        );
+function Cell({ row }: any) {
+    const complaint = row.original
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const onAssign = useCallback(
+        (id: string, verify: boolean) => {
+            setIsLoading(true);
+            const data = { verify };
+            // Request
+            axios
+                .patch(`/api/complaint/${id}`, data)
+                .then(() => {
+                    toast.success("Complaint Verified Successfully");
+                    router.refresh();
+                })
+                .catch((error) => {
+                    toast.error(error?.response?.statusText);
+                    console.error(error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        },
+        [router]
+    );
 
 
 
-        return (
-            <div className="col-span-3 flex flex-row gap-0 text-base">
-                <Button
-                    variant={`${user.role === 'student'?"default":"outline"}`}
-                    className={`${user.role === 'student'?"bg-cyan-800 dark:text-white":"bg-transparent"}
+    return (
+        <div className="col-span-3 flex flex-row gap-0 text-base">
+            <Button
+                disabled={isLoading}
+                variant={`${complaint.Verified === false ? "default" : "outline"}`}
+                className={`${complaint.Verified === false ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
                     rounded-l-full hover:bg-cyan-800 hover:border-cyan-900`}
-                    size="sm"
-                    onClick={() => onAssign(user.id, 'student')}
-                >Student</Button>
-                <Button
-                    variant={`${user.role === 'admin'?"default":"outline"}`}
-                    className={`${user.role === 'admin'?"bg-cyan-800 dark:text-white":"bg-transparent"}
+                size="sm"
+                onClick={() => onAssign(complaint.id, false)}
+            >Not Verified</Button>
+            <Button
+                disabled={isLoading}
+                variant={`${complaint.Verified === true ? "default" : "outline"}`}
+                className={`${complaint.Verified === true ? "bg-cyan-800 dark:text-white" : "bg-transparent"}
                     rounded-r-full hover:bg-cyan-800 hover:border-cyan-900`}
-                    size="sm"
-                    onClick={() => onAssign(user.id, 'admin')}
-                >Admin</Button>
-            </div>
-        )
-    }
+                size="sm"
+                onClick={() => onAssign(complaint.id, true)}
+            >{complaint.Verified}</Button>
+        </div>
+    )
+}
+

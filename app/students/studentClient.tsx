@@ -75,7 +75,7 @@ const StudentClient: React.FC<studentClientProps> = ({
                 complaintForm.reset();
                 setIsFormAcceptingResponse(false);
                 setCoolDownRemainingTime(60);
-                timer = setInterval(() => setCoolDownRemainingTime(coolDownRemainingTime - 1), 1000);
+                
             })
             .catch(() => {
                 toast.error('Something went wrong.');
@@ -88,10 +88,27 @@ const StudentClient: React.FC<studentClientProps> = ({
     }
 
     useEffect(() => {
-        if (!coolDownRemainingTime) {
-            clearInterval(timer);
+        // console.log(coolDownRemainingTime);
+        // if(coolDownRemainingTime === 60){
+        //     timer = setInterval(() => {setCoolDownRemainingTime((initState) => { return initState-1;}); 
+        //         // console.log('We hit setInterval');
+        //     }, 1000);
+        // }
+        // if (coolDownRemainingTime === 0) {
+        //     clearInterval(timer);            
+        //     setIsFormAcceptingResponse(true);
+        // }
+        if (coolDownRemainingTime > 0) {
+            const timer = setInterval(() => {
+              setCoolDownRemainingTime((prevState) => prevState - 1);
+            }, 1000);
+        
+            return () => {
+              clearInterval(timer);
+            };
+          } else if (coolDownRemainingTime === 0) {
             setIsFormAcceptingResponse(true);
-        }
+          }
     }, [coolDownRemainingTime])
 
 
@@ -167,13 +184,13 @@ const StudentClient: React.FC<studentClientProps> = ({
                         />
 
                         {!isFormAcceptingResponse && <>
-                            <p className="text-amber-500">You have reached the Message CoolDown Time</p>
-                            <p className="text-cyan-900">Waiting Time: {timer}</p>
+                            <p className="mt-3 text-amber-500">You have reached the Message CoolDown Time</p>
+                            <p className="text-cyan-900">Waiting Time: {coolDownRemainingTime}</p>
                         </>
                         }
 
                         <Button className="mt-5 w-full rounded px-3 py-1.5 overflow-hidden group bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950 relative hover:bg-gradient-to-r text-white transition-all ease-out duration-300"
-                            type="submit" disabled={isLoading} >
+                            type="submit" disabled={!(isLoading === false && isFormAcceptingResponse === true)} >
                             <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-96 ease"></span>
                             SUBMIT COMPLAINT
                         </Button>

@@ -31,10 +31,10 @@ export function DataTableToolbar<SafeUser>({
       <div className="flex flex-1 items-center space-x-2">
         {/* Customizable Here , so we need to pass props to here  */}
         <Input
-          placeholder="Filter Students by Name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter Students by Date..."
+          value={(table.getColumn("createdAt")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("createdAt")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />

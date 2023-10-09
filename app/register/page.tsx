@@ -13,6 +13,7 @@ import RegisterStudentClient from "./registerStudentClient";
 
 // actions
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import getStudentById from "@/app/actions/getStudentById";
 
 
 
@@ -26,31 +27,27 @@ const RegistrationPage = async () => {
   // }    
 
   //To check the url's storeid if present inside datanase and if present then fetch it
-  // if (currentUser && currentUser?.role === 'admin') {
-  //   redirect('/');
-  // }
-  // else {
-  //   const s = await prisma.studentCard.findFirst({
-  //     where: {
-  //       id: currentUser?.id,
-  //     }
-  //   })
-  //   const t = await prisma.teacherCard.findFirst({
-  //     where: {
-  //       id: currentUser?.id,
-  //     }
-  //   })
-  //   console.log('redirected to /register');
-  //   if ((currentUser && (s || t)) || currentUser?.role === 'admin') {
-  //     console.log('redirected to /root');
-  //     redirect('/');
-  //   }
-  // }
-  // const user = await prisma.user.findFirst({
-  //   where: {
-  //     id: currentUser?.id,
-  //   }
-  // })
+  if (currentUser && currentUser?.role === 'admin') {
+    redirect('/');
+  }
+  else {
+    const s = await prisma.studentCard.findFirst({
+      where: {
+        id: currentUser?.id,
+      }
+    })
+    
+    console.log('redirected to /register');
+    if ((currentUser && s ) || currentUser?.role === 'admin') {
+      console.log('redirected to /root');
+      redirect('/');
+    }
+  }
+  const user = await prisma.user.findFirst({
+    where: {
+      id: currentUser?.id,
+    }
+  })
 
 
 
