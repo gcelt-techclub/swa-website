@@ -184,6 +184,7 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                         {imgList.map((user: any) => (
                             user.role === 'faculty' && (
                                 <iframe
+                                key={user.id}
                                     width="400"
                                     height="200"
                                     src="https://www.youtube.com/embed/BdX_rWmr1oE?start=4"

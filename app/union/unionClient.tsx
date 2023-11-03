@@ -91,7 +91,7 @@ const UnionClient: React.FC<UnionClientProps> = ({
         <Container>
 
             <ResponsiveMasonry
-                columnsCountBreakPoints={{ c }}
+                columnsCountBreakPoints={{ 50:1, 640: 2, 1024: 3, 1280: 4, 1536: 5 }}
             >
                 <Masonry gutter="2rem">
                     {currentUser?.role === 'admin' &&

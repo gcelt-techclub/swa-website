@@ -1,26 +1,25 @@
-# FullStack GCELT WebApp using Nextjs 13 App Router , Typescript , Tailwind , Prisma , Mongodb , NextAuth
-This is a repository for a Full Stack Website for GCELT 
+# FullStack GCELT SWA WebApp using Nextjs 13 App Router , Typescript , Tailwind , Prisma , Mongodb , NextAuth
+This is a repository for a Full Stack Website for GCELT SWA
 
 ## Key Feature
 - [x] View Mode and User Mode Security Access
 - [x] Implemented Theme Toggling Facility 
-- [x] Showcasing All Students using card design 
+- [x] Showcasing All Union Members using card design 
 - [x] Implement Filtering and Searching Functionality
-- [x] Showcasing All Faculty Members using card design
-- [x] Implement Filtering and Searching Functionality here as well
-- [x] Role Based Access : Three Roles - Students , Teachers , Admin
+- [x] Showcasing All Events using card design
+- [x] Implement Featuring of Event Image for a particular image
+- [x] Masonry Grid view in Union Members, gallery 
+- [x] Role Based Access : Two Roles - Students , Admin
 - [x] Assign Roles to Existing users by admin
 - [x] Have Verification of Registered User Information Facility
+- [x] Cooldown Time for Students Complaints in Students page
+- [x] Cooldown Time for Users Reviews in Contacts Page
 - [x] New User SignUp , Redirect to Registration Form with Necessary Details 
-- [x] Editing and updation Facility for Users who owned the Card as well as for Admins
+- [x] Editing and updation Facility for Events , Union Members , Gallery by Admins roles only
 - [x] Referral Program implementation to request for Role update for users during registration
 - [x] SignUp / SignIn and Logout Facility using NextAuth , NextSessions and Mongodb
-- [ ] TODO : Launching New Role : CR and Assigning some special facility that students don't have
-- [ ] TODO : Launch new updates with Routine navigation
-- [ ] TODO : Launch new updates with Exam navigation
-- [ ] TODO : Teacher , CR and admin can Create Routine or update Routine
+- [ ] TODO : Launch new updates with Clubs navigation
 - [ ] TODO : More Future Updates
-- [ ] TODO : Cooldown Time for Updating Information only for Students 
 - [ ] TODO : Feedback form for Testing Phase
 - [ ] TODO :  
 
@@ -46,9 +45,11 @@ This is a repository for a Full Stack Website for GCELT
 
 ## Routes Mapping
 - app home route :  /
-- faculty route :  /faculty
-- Routine route : /routine
-- Exam route :  /exam
+- events route :  /even
+- Gallery route : /gallery
+- Clubs route :  /clubs
+- Union Members route: /union
+- Contacts routes: /contacts
 - signIn Route: /signIn
 - Protected Routes : Security Purpose Don't want to Write in ReadMe
 
@@ -61,22 +62,11 @@ This is a repository for a Full Stack Website for GCELT
   - In Future can Schedule their task in Routine Navigation
   - In Fututre Can Message any other existing User
   - Have a Update Limit upto 2 edits per month
-- CR
-    - Special Access to create and update Routine
-    - Special Access to create and update exam schedule
-- Teacher
-  - can Register for new login
-  - can Edit their own cards
-  - can Send Push Notifications to Students
-  - can Update and create routine and exam schedule
-  - can verify students only
+
 - Admin 
   - All Access except database access
 - Institution Level : ``` Not Role ```
   -  Maintains and have All Access
-
-
-![Website Screenshot](https://github.com/OPTIMUS-PRIME2001/MFRT_Project/blob/master/public/images/Website_%20Screenshot.jpeg)
 
 
 
