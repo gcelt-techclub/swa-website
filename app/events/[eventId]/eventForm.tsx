@@ -12,13 +12,12 @@ import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Event, Image } from "@prisma/client";
-// import Image from "next/image";
+import { Event } from "@prisma/client";
+import Image from "next/image";
 
 
 // Local imports
 //components
-import { Avatar, AvatarImage } from "@/app/components/ui/avatar";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
 import {
@@ -48,6 +47,9 @@ import {
     CardHeader,
     CardTitle
 } from "@/app/components/ui/card";
+import {SafeImage} from '@/app/types/index';
+
+
 
 // Formschema with zord validation
 const formSchema = z.object({
@@ -55,7 +57,7 @@ const formSchema = z.object({
     images: z.object({ url: z.string().url() }).array(),
     date: z.string().min(3),
     Description: z.string().min(1),
-    Featured: z.string().url().optional(),
+    Featured: z.string().url(),
     // isArchived: z.boolean().default(false).optional(),
 });
 
@@ -64,7 +66,7 @@ type EventFormValues = z.infer<typeof formSchema>
 
 interface EventFormProps {
     initialData: Event & {
-        image: Image[]
+        image: SafeImage[]
     } | null | any;
 };
 
@@ -93,7 +95,7 @@ export const EventForm: React.FC<EventFormProps> = ({
             images: [],
             date: '',
             Description: '',
-            Featured: '',
+            Featured: '/images/assets/uploadbanner.jpg',
         }
     });
 
@@ -258,6 +260,9 @@ export const EventForm: React.FC<EventFormProps> = ({
                         {/* Preview Part */}
                         <div className="order-first mb-10 md:order-2 md:col-span-3 ">
                             <Card className="select-none w-full bg-neutral-100 dark:bg-slate-900 shadow-sm hover:-translate-y-4 transition">
+                                <CardHeader>
+                                    <CardTitle>Preview</CardTitle>
+                                </CardHeader>
                                 <CardContent className="mb-0 pb-0.5">
                                     <div className="flex flex-row items-center gap-2 w-full overflow-hidden text-2xl mb-2">
                                         <div className="font-bold ">
@@ -268,13 +273,13 @@ export const EventForm: React.FC<EventFormProps> = ({
                                         </div>
                                     </div>
                                     <div className="border-amber-500 border-4">
-                                        {/* <Image
+                                        <Image
                                             onClick={() => router.push('/')}
-                                            src={data?.Featured}
+                                            src={form.getValues('Featured') }
                                             height="700"
                                             width="1000"
                                             alt="Event"
-                                        /> */}
+                                        />
                                     </div>
                                 </CardContent>
                                 <CardFooter className="relative mt-1">

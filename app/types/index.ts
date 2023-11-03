@@ -1,6 +1,7 @@
 import { StudentCard,
     SocialLinks,
     Event,
+    Image,
     GalleryPic,
     UnionMembers,
     ContactInfo ,
@@ -16,6 +17,11 @@ export type SafeStudent = Omit<safeListing,"createdAt"> & {
 };
 
 export type SafeEvent = Omit<Event, "createdAt" | "updatedAt"> & {
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type SafeImage = Omit<Image, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
 };

@@ -11,9 +11,12 @@ const EventPage = async ({
     let event=null;
     if (params.eventId !== 'new') {
         // To find if Picture already exits or not , if not then we create upload a new Picture
-        event = await prismadb.unionMembers.findUnique({
+        event = await prismadb.event.findUnique({
           where: {
             id: params.eventId
+          },
+          include: {
+            images: true
           }
         });
       }
