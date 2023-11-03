@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 // Local imports
 import { SafeStudent, SafeUser } from "@/app/types";
@@ -89,18 +90,6 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
     );
 
 
-
-    //Masonary Grid
-    const MAX_COLUMNS = 4;
-
-    function getColumns(colIndex: number) {
-        return imgList.filter((resource: any, idx: any) =>
-            idx % MAX_COLUMNS === colIndex
-        );
-    }
-
-
-
     return (
         <Container>
             <Tabs defaultValue="college">
@@ -120,37 +109,34 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
 
 
                 <TabsContent value="college">
-                    <div
-                        className="mt-10
-                            grid grid-cols-1 
-                            sm:grid-cols-2 
-                            md:grid-cols-2 
-                            lg:grid-cols-3
-                            xl:grid-cols-4
-                            2xl:grid-cols-5
-                            gap-8
-                        "
+                    <ResponsiveMasonry
+                        className="mt-10"
+                        columnsCountBreakPoints={{ 50:1, 640: 2, 1024: 3, 1280: 4, 1536: 5 }}
                     >
-                        {imgList.map((image: any) => (
-                            image.type === 'college' && (
-                                <GalleryCard
-                                    key={image.id}
-                                    data={image}
-                                    // image={image}
-                                    actionId={image.id}
-                                    onAction={onVerify}
-                                    onDeletion={onDelete}
-                                    disabled={VerifyId === image.id}
-                                    actionLabel="Verify"
-                                    currentUser={currentUser}
-                                />
-                            )
+                        <Masonry gutter="2rem">
+                            {imgList.map((image: any) => (
+                                image.type === 'college' && (
+                                    <GalleryCard
+                                        key={image.id}
+                                        data={image}
+                                        // image={image}
+                                        actionId={image.id}
+                                        onAction={onVerify}
+                                        onDeletion={onDelete}
+                                        disabled={VerifyId === image.id}
+                                        actionLabel="Verify"
+                                        currentUser={currentUser}
+                                    />
+                                )
 
-                        ))}
-                    </div>
+                            ))}
+                        </Masonry>
+                    </ResponsiveMasonry>
                 </TabsContent>
+
+
                 <TabsContent value="students_batch">
-                    <div
+                    {/* <div
                         className="mt-10
                             grid grid-cols-1 
                             sm:grid-cols-2 
@@ -160,15 +146,13 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                             2xl:grid-cols-4
                             gap-8
                         "
+                    > */}
+                    <ResponsiveMasonry
+                        className="mt-10"
+                        columnsCountBreakPoints={{ 50:1, 640: 2, 1024: 3, 1280: 4, 1536: 5  }}
                     >
-                        {/* Masonry Grid */}
-                        {[
-                            getColumns(0),
-                            getColumns(1),
-                            getColumns(2),
-                            getColumns(3)
-                        ].map(column => <div key={column} className="flex flex-col gap-4">
-                            {column.map((image: any) => (
+                        <Masonry gutter="2rem">
+                            {imgList.map((image: any) => (
                                 image.type === 'students_batch' && (
                                     <GalleryCard
                                         key={image.id}
@@ -184,9 +168,11 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                                 )
 
                             ))}
-                        </div>)}
-                    </div>
+                        </Masonry>
+                    </ResponsiveMasonry>
                 </TabsContent>
+
+
                 <TabsContent value="all_program">
                     <div
                         className="mt-10
@@ -197,13 +183,13 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                     >
                         {imgList.map((user: any) => (
                             user.role === 'faculty' && (
-                                <iframe 
-                                    width="400" 
-                                    height="200" 
-                                    src="https://www.youtube.com/embed/BdX_rWmr1oE?start=4" 
-                                    frameBorder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowFullScreen>                                    
+                                <iframe
+                                    width="400"
+                                    height="200"
+                                    src="https://www.youtube.com/embed/BdX_rWmr1oE?start=4"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen>
                                 </iframe>
                             )
                         ))}
