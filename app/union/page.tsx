@@ -1,13 +1,9 @@
 export const dynamic = 'force-dynamic'
 
 // import { format } from "date-fns";
-
+// import Category List
+import Filter from "@/app/components/customUi/filter/Filter";
 import Image from "next/image";
-// const BillboardsPage = async ({
-//     params
-// }: {
-//     params: { storeId: string }
-// }) => {
 
 // Local imports
 import EmptyState from "@/app/components/EmptyState";
@@ -16,7 +12,7 @@ import Heading from "@/app/components/ui/Heading";
 import Container from "@/app/components/Container";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getUnionMembers , { MemberListingsParams } from "@/app/actions/getUnionMembers";
+import getUnionMembers, { getCategories, MemberListingsParams } from "@/app/actions/getUnionMembers";
 
 import UnionClient from "./unionClient";
 
@@ -29,6 +25,10 @@ interface VerifyProps {
 const UnionPage = async ({ searchParams }: VerifyProps) => {
     const currentUser = await getCurrentUser();
     const pictures = await getUnionMembers(searchParams);
+    let categoryList = await getCategories();
+    categoryList.push({ label: 'All', valuefrom: 2011 , valueTo:2023});
+
+    const newList = categoryList;
 
     if (pictures.length === 0) {
         return (
@@ -44,7 +44,7 @@ const UnionPage = async ({ searchParams }: VerifyProps) => {
     return (
         <ClientOnly>
             <div>
-            <Image
+                <Image
                     src={"/images/assets/hero_img.jpg"}
                     height={1200}
                     width={637}
@@ -63,8 +63,10 @@ const UnionPage = async ({ searchParams }: VerifyProps) => {
                 <span className="mt-10 mb-10 flex flex-col justify-center items-center">
                     <p className="font-black text-4xl whitespace-pre p-3">SWA  UNION  MEMBERS</p>
                     <hr className="w-full  border-t border-neutral-400 dark:border-muted-foreground" />
+                    {/* <Filter/> */}
+                    <Filter categoryList={newList} />
                 </span>
-                {/* <Filter/> */}
+
                 <UnionClient
                     imgList={pictures}
                     currentUser={currentUser}

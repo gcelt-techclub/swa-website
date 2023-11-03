@@ -190,27 +190,21 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                 <TabsContent value="all_program">
                     <div
                         className="mt-10
-                            grid grid-cols-1 
-                            sm:grid-cols-2 
-                            md:grid-cols-3 
-                            lg:grid-cols-3
-                            2xl:grid-cols-4
+                            grid grid-cols-1  
+                            md:grid-cols-2 
                             gap-6
                             "
                     >
                         {imgList.map((user: any) => (
                             user.role === 'faculty' && (
-                                <FacultyCard
-                                    key={user.id}
-                                    data={user}
-                                    // user={user}
-                                    actionId={user.id}
-                                    onAction={onVerify}
-                                    onDeletion={onDelete}
-                                    disabled={VerifyId === user.id}
-                                    actionLabel="Verify"
-                                    currentUser={currentUser}
-                                />
+                                <iframe 
+                                    width="400" 
+                                    height="200" 
+                                    src="https://www.youtube.com/embed/BdX_rWmr1oE?start=4" 
+                                    frameBorder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowFullScreen>                                    
+                                </iframe>
                             )
                         ))}
                     </div>

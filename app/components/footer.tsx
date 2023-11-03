@@ -17,7 +17,7 @@ const Footer: React.FC<NavbarProps> = async ({
     contactInfo,
 }) => {
     return (
-        <div className="z-0 h-fit relative bg-cyan-900 flex flex-col items-center justify-center text-white">
+        <div className="w-full h-fit relative bg-cyan-900 flex flex-col items-center justify-center text-white">
             <div className="w-full absolute top-0 h-5 bg-gradient-to-r from-sky-950 via-cyan-950 to-cyan-900 border-b-2 border-cyan-950">
             </div>
             <Container>
@@ -73,8 +73,9 @@ const Footer: React.FC<NavbarProps> = async ({
                     </div>
                 </div>
             </Container>
-            <div className="w-full absolute bottom-0 h-10 p-2 bg-cyan-950 flex justify-center whitespace-pre text-sm">
-                &#169; 2023 All Rights Reserved by SWA GCELT   |   Developed by Saptarshi Chatterjee @Batch-2024 
+            <div className="w-full  h-fit absolute bottom-0 p-2 bg-cyan-950 flex flex-col flex-wrap overflow-hidden justify-center items-center whitespace-pre text-sm">
+               <p> &#169; 2023 All Rights Reserved by SWA GCELT </p> 
+               <p className="text-xs">Developed by Saptarshi Chatterjee @Batch-2024</p>
             </div>
         </div>
 

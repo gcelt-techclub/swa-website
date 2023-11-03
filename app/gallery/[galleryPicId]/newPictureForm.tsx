@@ -2,6 +2,7 @@
 
 //icons
 import { Trash } from "lucide-react"
+
 // Global imports
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -214,10 +215,10 @@ export const NewPictureForm: React.FC<NewPictureFormProps> = ({
                         />
                     </div>
                     <Button className="rounded px-5 py-2.5 overflow-hidden group bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950 relative hover:bg-gradient-to-r text-white transition-all ease-out duration-300"
-                                    type="submit" disabled={loading} >
-                                    <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 group-hover:-translate-x-96 ease"></span>
-                                    {action}
-                                </Button>
+                        type="submit" disabled={loading} >
+                        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 group-hover:-translate-x-96 ease"></span>
+                        {action}
+                    </Button>
                 </form>
             </Form>
         </>

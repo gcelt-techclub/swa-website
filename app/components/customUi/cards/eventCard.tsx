@@ -124,7 +124,7 @@ const EventCard: React.FC<EventCardProps> = ({
                             variant="ghost"
                             size="icon"
                             disabled={disabled}
-                            onClick={() => router.push(`/gallery/${data.id}`)}
+                            onClick={() => router.push(`/events/${data.id}`)}
                         ><Pencil size={18} /> Edit
                         </Button>
                         }

@@ -1,7 +1,7 @@
 "use client";
 
 // import Category List
-import { formattedFilter, SearchFilter } from "./FilterList"
+import { SearchFilter } from "./FilterList"
 
 // icons
 import { BsSliders } from "react-icons/bs";
@@ -23,27 +23,24 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "
 import getYear from "@/lib/getYear";
 import { cn } from "@/lib/utils";
 
+interface FilterProps {
+    categoryList: any;
+}
 
-const Filter = () => {
+const Filter: React.FC<FilterProps> = ({
+    categoryList
+}) => {
     const router = useRouter();
     // Holds the default path name
     const params = useSearchParams();
     const pathname = usePathname();
-    // const isMainPage = pathname === "/";
-    // const isFacultyPage = pathname === "/faculty";
-
-    // //restriting to first page only . This can create too many hooks rendering issue
-    // if (!isMainPage && !isFacultyPage) {
-    //     return null;
-    // }
-
 
     // Category Search 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
 
-    const handleClick = useCallback((Value:string) => {
+    const handleClick = useCallback((From: string, To:string) => {
         let currentQuery = {};
 
         if (params) {
@@ -52,15 +49,17 @@ const Filter = () => {
 
         const updatedQuery: any = {
             ...currentQuery,
-            category: Value
+            fromYear: From,
+            ToYear: To
         }
 
-        if (params?.get('category') === Value) {
-            delete updatedQuery.category;
+        if (params?.get('fromYear') === From || params?.get('ToYear') === To) {
+            delete updatedQuery.fromYear;
+            delete updatedQuery.ToYear;
         }
 
         const url = qs.stringifyUrl({
-            url: '/',
+            url: '/union/',
             query: updatedQuery
         }, { skipNull: true });
 
@@ -138,23 +137,22 @@ const Filter = () => {
 
     return (
         <Container>
-            <div className="pt-2 flex flex-row items-center justify-between overflow-x-auto">
+            <div className="pt-2 flex flex-row justify-between overflow-x-auto">
                 {/* Mapping the yearwise categories  */}
-                {formattedFilter.map((item: { label: string, value: string }) => (
-                    <div key={item.label}
-                        onClick={() => handleClick(item.value)}
-                        className={`
-                            p-1  pb-3  border-b-0  transition  cursor-pointer
-                          hover:text-neutral-800 dark:hover:text-neutral-100                             
+                <div className="flex flex-row flex-wrap gap-2">
+                    {categoryList.map((item: { label: string, valueFrom: string, valueTo:string }) => (
+                        <div key={item.label}
+                            onClick={() => handleClick(item.valueFrom , item.valueTo)}
+                            className={`cursor-pointer
+                            inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md                             
                         `}
                         //${Year === item.label ? 'border-b-neutral-800  dark:border-b-neutral-200' : 'border-transparent'}
                         //${Year === item.label ? 'text-neutral-800 dark:text-neutral-100' : 'text-neutral-500'}
-                    >
-                        <div className="font-medium text-sm">{item.label}</div>
-                    </div>
-                )
-                )}
-
+                        >
+                            <div className="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">{item.label}</div>
+                        </div>
+                    ))}
+                </div>
                 {/* Search Bar */}
                 <div className="w-full md:w-1/2 flex flex-row items-center relative z-100">
                     <Popover open={open} onOpenChange={setOpen}>

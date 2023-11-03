@@ -86,14 +86,15 @@ const Home = async () => {
                                                 <Image
                                                     src={image.src}
                                                     height={150}
-                                                    width={200}                                                    
+                                                    width={200}
                                                     alt="four_images"
                                                 />
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                            </div></div>
+                            </div>
+                        </div>
                     </CardContent>
                 </Card>
                 <Card className="select-none w-full bg-neutral-100 dark:bg-slate-900 shadow-lg my-5">
@@ -112,7 +113,7 @@ const Home = async () => {
                                                 <Image
                                                     src={image.src}
                                                     height={120}
-                                                    width={160}                                                    
+                                                    width={160}
                                                     alt="ten_images"
                                                 />
                                             </div>

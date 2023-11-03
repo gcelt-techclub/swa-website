@@ -9,6 +9,20 @@ export interface MemberListingsParams {
     ToYear?: number;
 }
 
+
+export async function getCategories(){
+    // to find the all YearList
+    // list for filter
+    const categories = await prisma.yearList.findMany();
+    const categoryList =categories.map((category) => ({
+        label: `${category.fromYear.toString()}-${category.toYear.toString().slice(-2)}`,
+        valuefrom: category.fromYear,
+        valueTo: category.toYear
+    }));
+    return categoryList;
+}
+
+
 export default async function getUnionMembers(
     params: MemberListingsParams
 ) {

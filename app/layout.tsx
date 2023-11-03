@@ -41,13 +41,11 @@ export default async function RootLayout({
                         <ToasterProvider />
                         <ModalProvider />
                         <Navbar currentUser={currentUser} />
-                        <Feedback/>
+                        <Feedback/>                        
                     </ClientOnly>
                     <div className="pt-28">{children}</div>
                     {/* <Footer/> */}
-                    <ClientOnly>
                         <Footer contactInfo={ContactInfo}/>
-                    </ClientOnly>
                 </body>
             </html >
         </AuthContextProvider>

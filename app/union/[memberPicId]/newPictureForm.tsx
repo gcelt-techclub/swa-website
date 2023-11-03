@@ -1,7 +1,11 @@
 "use client"
 
 //icons
-import { Trash } from "lucide-react"
+import { Trash ,Pencil} from "lucide-react"
+import { PiGraduationCapDuotone } from "react-icons/pi";
+import { HiOutlineClock, HiOutlineEye } from "react-icons/hi";
+
+
 // Global imports
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -11,6 +15,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { UnionMembers } from "@prisma/client"
+import Image from "next/image";
 
 // Local imports
 //components
@@ -35,7 +40,13 @@ import { Separator } from "@/app/components/ui/separator"
 import Heading from "@/app/components/ui/Heading"
 import { ConfirmationModal } from "@/app/components/modals/confirmationModal"
 import ImageUpload from "@/app/components/modals/sqImageUpload"
-
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from "@/app/components/ui/card";
 
 
 const currentYear = Number(new Date().getFullYear());
@@ -57,7 +68,7 @@ const roleTags = ['GENERAL SECRETARY',
     'HOSTEL AFFAIRS SECRETARY',
     'CLUB ADMINISTRATION',
     'CLASS REPRESENTATIVE',
-
+    'UNION MEMBER'
 ] as const;
 type RoleTags = typeof roleTags[number];
 
@@ -173,135 +184,204 @@ export const NewPictureForm: React.FC<NewPictureFormProps> = ({
                 )}
             </div>
             <Separator />
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-                    <FormField
-                        control={form.control}
-                        name="imageUrl"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Background image</FormLabel>
-                                <FormControl>
-                                    <ImageUpload
-                                        value={field.value ? [field.value] : []}
-                                        disabled={loading}
-                                        onChange={(url) => field.onChange(url)}
-                                        onRemove={() => field.onChange('')}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="md:grid md:grid-cols-3 gap-8">
-                        <FormField
-                            control={form.control}
-                            name="label"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Member Name *</FormLabel>
-                                    <FormControl>
-                                        <Input type='text' required disabled={loading} placeholder="Photo label" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="batch"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Batch *</FormLabel>
-                                    <FormControl>
-                                        <Input type='text' required disabled={loading} placeholder="(Year - Year+4)" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="gender"
-                            render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Gender *</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={loading}>
+                    <div className="grid grid-cols-1 md:grid-cols-12 md:gap-7 mt-2 mb-2">
+                        <div className="order-1 col-span-9 flex flex-col gap-3">
+
+                            <FormField
+                                control={form.control}
+                                name="imageUrl"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Background image</FormLabel>
                                         <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a category" {...field} />
-                                            </SelectTrigger>
+                                            <ImageUpload
+                                                value={field.value ? [field.value] : []}
+                                                disabled={loading}
+                                                onChange={(url) => field.onChange(url)}
+                                                onRemove={() => field.onChange('')}
+                                            />
                                         </FormControl>
-                                        <SelectContent>
-                                            {genderType.map((gender) => (
-                                                <SelectItem key={gender} value={gender}>
-                                                    {gender}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="FromYear"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>From Year *</FormLabel>
-                                    <FormControl>
-                                        <Input type='number' required disabled={loading} placeholder="From Year" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="ToYear"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>To Year *</FormLabel>
-                                    <FormControl>
-                                        <Input type='number' required disabled={loading} placeholder="To Year" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="role"
-                            render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Responsibility *</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={loading}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a category" {...field} />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            {roleTags.map((role) => (
-                                                <SelectItem key={role} value={role}>
-                                                    {role}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <FormField
+                                    control={form.control}
+                                    name="label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Member Name *</FormLabel>
+                                            <FormControl>
+                                                <Input type='text' required disabled={loading} placeholder="Photo label" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="batch"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Batch *</FormLabel>
+                                            <FormControl>
+                                                <Input type='text' required disabled={loading} placeholder="(Year - Year+4)" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="gender"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormLabel>Gender *</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={loading}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a category" {...field} />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {genderType.map((gender) => (
+                                                        <SelectItem key={gender} value={gender}>
+                                                            {gender}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="FromYear"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>From Year *</FormLabel>
+                                            <FormControl>
+                                                <Input type='number' required disabled={loading} placeholder="From Year" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="ToYear"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>To Year *</FormLabel>
+                                            <FormControl>
+                                                <Input type='number' required disabled={loading} placeholder="To Year" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="role"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormLabel>Responsibility *</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={loading}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a category" {...field} />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {roleTags.map((role) => (
+                                                        <SelectItem key={role} value={role}>
+                                                            {role}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            <Button className="w-fit rounded px-5 py-2.5 overflow-hidden group bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950 relative hover:bg-gradient-to-r text-white transition-all ease-out duration-300"
+                                type="submit" disabled={loading} >
+                                <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 group-hover:-translate-x-96 ease"></span>
+                                {action}
+                            </Button>
+
+                        </div>
+
+
+
+
+                        {/* Preview Part */}
+                        <div className="order-first mb-10 md:order-2 md:col-span-3 ">
+                            <Card className="select-none w-full bg-neutral-100 dark:bg-slate-900 shadow-lg hover:-translate-y-4 transition">
+                                <CardHeader>
+                                    <CardTitle>Preview</CardTitle>
+                                </CardHeader>
+                                <CardContent className="mb-0 pb-0.5">
+                                    <div className="w-full h-full border-black border-2 mb-1">
+                                        <Image
+                                            onClick={() => router.push('/')}
+                                            className="xs:block  cursor-pointer w-full h-full"
+                                            src={form.getValues('imageUrl')}
+                                            height="500"
+                                            width="150"
+                                            alt="Logo"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2 w-full overflow-hidden ">
+                                        <div className="font-bold ">
+                                            {form.getValues('gender') === 'MALE' ? 'MR' : form.getValues('gender') === 'FEMALE' ? 'MISS' : ''} {form.getValues('label')}
+                                        </div>
+                                            <div className="text-sm">
+                                                {form.getValues('role')}
+                                            </div>
+                                    </div>
+                                </CardContent>
+                                <CardFooter className="relative mt-0">
+                                    <div className="flex flex-col gap-2 w-full overflow-hidden ">
+                                        <div className="flex flex-row items-center gap-1">
+                                            <span className="bg-purple-200  dark:bg-slate-800 p-1  
+                                            font-semibold rounded-md text-purple-600 dark:text-purple-300">
+                                                <HiOutlineClock size={14} />
+                                            </span>
+                                            <div className="font-light text-sm">
+                                                {form.getValues('FromYear')} - {form.getValues('ToYear')}
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-1">
+                                            <span className="bg-purple-200 dark:bg-slate-800 p-1 
+                                        font-semibold rounded-md text-purple-600 dark:text-purple-300">
+                                                <PiGraduationCapDuotone size={14} />
+                                            </span>
+                                            <div className="font-light text-sm">
+                                                Batch: {form.getValues('batch')}
+                                            </div>
+                                        </div>
+                                        <span className="absolute flex flex-col justify-end items-end  gap-2 right-3 ">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => router.push(form.getValues('imageUrl'))}
+                                            ><HiOutlineEye size={18} /></Button>
+                                        </span>
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        </div>
                     </div>
-                    <Button className="rounded px-5 py-2.5 overflow-hidden group bg-gradient-to-b from-cyan-700 via-cyan-900 to-cyan-950 relative hover:bg-gradient-to-r text-white transition-all ease-out duration-300"
-                        type="submit" disabled={loading} >
-                        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 group-hover:-translate-x-96 ease"></span>
-                        {action}
-                    </Button>
                 </form>
             </Form>
+
         </>
     );
 };
