@@ -1,5 +1,6 @@
 //Global imports
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 // Local imports
 import { SafeUser } from "@/app/types";
@@ -26,15 +27,15 @@ const Footer: React.FC<NavbarProps> = async ({
                         <div className="order-1 col-span-2 flex flex-col gap-1 pr-18">
                             <Heading heading2="MAIN MENU" />
                             <span className="font-light text-neutral-300 text-sm flex flex-col -mb-1">
-                                <a href='https://gcelt.gov.in' target="_blank">GCELT</a>
-                                <a href='/'>HOME</a>
-                                <a href='/events'>EVENTS</a>
-                                <a href='/gallery'>GALLERY</a>
-                                <a href='/clubs'>CLUBS</a>
-                                <a href='/union'>UNION MEMBERS</a>
-                                <a href='/students'>STUDENTS</a>
-                                <a href='#'>RC_GCELT</a>
-                                <a href='/contact'>CONTACTS</a>
+                                <Link href='https://gcelt.gov.in' target="_blank">GCELT</Link>
+                                <Link href='/'>HOME</Link>
+                                <Link href='/events'>EVENTS</Link>
+                                <Link href='/gallery'>GALLERY</Link>
+                                <Link href='/clubs'>CLUBS</Link>
+                                <Link href='/union'>UNION MEMBERS</Link>
+                                <Link href='/students'>STUDENTS</Link>
+                                <Link href='#'>RC_GCELT</Link>
+                                <Link href='/contact'>CONTACTS</Link>
                             </span>
                         </div>
                         <div className="order-first mb-10 md:order-2 md:col-span-4 ">
@@ -67,8 +68,8 @@ const Footer: React.FC<NavbarProps> = async ({
                             <span className="flex flex-row items-center gap-2 font-light text-sm"> <PhoneCall  size={18} /> +91 {contactInfo.PhoneNum1} </span>
                             <span className="flex flex-row items-center gap-2 font-light text-sm"> <MapPin size={18} /> Block - LB 11, Sector-III, Salt Lake</span>     
                             <span className="flex flex-row items-center gap-2 font-light text-sm"> Kolkata-700106, West Bengal , India. </span>       
-                            <span className="flex flex-row items-center gap-2 font-light text-sm"> <Facebook size={18} /> Facebook</span>   
-                            <span className="flex flex-row items-center gap-2 font-light text-sm"> <Youtube size={18} /> Youtube</span>                   
+                            <a href="https://www.facebook.com/p/Students-Welfare-Association-GCELT-100069379433697/" className="flex flex-row items-center gap-2 font-light text-sm"> <Facebook size={18} /> Facebook</a>   
+                            <a href="https://www.youtube.com/@SWAGCELT/featured" className="flex flex-row items-center gap-2 font-light text-sm"> <Youtube size={18} /> Youtube</a>                   
                         </div>
                     </div>
                 </div>

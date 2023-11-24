@@ -71,7 +71,7 @@ export const NewPictureForm: React.FC<NewPictureFormProps> = ({
     // Some toggler variales between new billboard creation or existing billboard updation mode
     const title = initialData ? 'Edit gallery uploads' : 'Upload New Photos';
     const description = initialData ? 'Edit Your Photos in gallery.' : 'Add a new photos to gallery';
-    const toastMessage = initialData ? 'Gallery updated.' : 'Gsllery created.';
+    const toastMessage = initialData ? 'Gallery updated.' : 'Gallery created.';
     const action = initialData ? 'Save changes' : 'Create';
 
     const form = useForm<NewPictureFormValues>({

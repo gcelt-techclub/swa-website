@@ -137,7 +137,7 @@ export default function UserMenu({ currentUser, scrollingColor  }: UserMenuProps
 
                             <DropdownMenuSeparator />
                         </>}
-                        <DropdownMenuGroup className="block lg:hidden text-neutral-600">
+                        <DropdownMenuGroup className="block lg:hidden text-neutral-600 dark:text-neutral-300">
                             <DropdownMenuItem onClick={() => router.push('https://gcelt.gov.in')}>
                                 <School2  className="mr-2 h-4 w-4" /> GCELT
                             </DropdownMenuItem>
@@ -163,7 +163,7 @@ export default function UserMenu({ currentUser, scrollingColor  }: UserMenuProps
                                 <Contact className="mr-2 h-5 w-5" /> Contact
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
-                        <DropdownMenuGroup className="text-neutral-600 dark:text-neutral-500 my-3">
+                        <DropdownMenuGroup className="text-neutral-600 dark:text-neutral-300 my-3">
                             {currentUser ? currentUser.role === "admin" ? (
                                 <>
                                     <DropdownMenuItem onClick={() => router.push('/roles')}>

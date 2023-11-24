@@ -40,6 +40,10 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
     const router = useRouter();
     const [VerifyId, setVerifyId] = useState("");
 
+    const College = imgList.filter((image: any) => { return (image.type === "college") });
+    const Students_batch = imgList.filter((image: any) => { return (image.type === "students_batch") });
+    const All_program = imgList.filter((image: any) => { return (image.type === "all_program") });
+
     const onVerify = useCallback(
         (id: string, path: string) => {
             setVerifyId(id);
@@ -114,7 +118,7 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                         columnsCountBreakPoints={{ 50:1, 640: 2, 1024: 3, 1280: 4, 1536: 5 }}
                     >
                         <Masonry gutter="2rem">
-                            {imgList.map((image: any) => (
+                            {College.map((image: any) => (
                                 image.type === 'college' && (
                                     <GalleryCard
                                         key={image.id}
@@ -152,7 +156,7 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                         columnsCountBreakPoints={{ 50:1, 640: 2, 1024: 3, 1280: 4, 1536: 5  }}
                     >
                         <Masonry gutter="2rem">
-                            {imgList.map((image: any) => (
+                            {Students_batch.map((image: any) => (
                                 image.type === 'students_batch' && (
                                     <GalleryCard
                                         key={image.id}
@@ -181,17 +185,18 @@ const GalleryClient: React.FC<GalleryClientProps> = ({
                             gap-6
                             "
                     >
-                        {imgList.map((user: any) => (
-                            user.role === 'faculty' && (
+                        {All_program.map((image: any) => (
+                                image.type === 'all_program' && (
+                                <div  key={image.id} className="w-full">
                                 <iframe
-                                key={user.id}
-                                    width="400"
-                                    height="200"
-                                    src="https://www.youtube.com/embed/BdX_rWmr1oE?start=4"
+                                    width="900"
+                                    height="500"
+                                    src={image.imageUrl}
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen>
                                 </iframe>
+                                </div>
                             )
                         ))}
                     </div>
