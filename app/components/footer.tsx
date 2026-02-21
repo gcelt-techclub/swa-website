@@ -76,7 +76,7 @@ const Footer: React.FC<NavbarProps> = async ({
             </Container>
             <div className="w-full  h-fit absolute bottom-0 p-2 bg-cyan-950 flex flex-col flex-wrap overflow-hidden justify-center items-center whitespace-pre text-sm">
                <p> &#169; 2023 All Rights Reserved by SWA GCELT </p> 
-               <p className="text-xs">Developed by Saptarshi Chatterjee @Batch-2024</p>
+               <p className="text-xs">Developed by Arpan @Batch-2026</p>
             </div>
         </div>
 
